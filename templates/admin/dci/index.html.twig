@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% set action = app.current_route=="app_admin_dci" ? "Créer un nouveau DCI" : "Editer le DCI" %}
+
 {% block title %}Hello DCIController!{% endblock %}
 
 {% block body %}
@@ -9,12 +11,17 @@
 </style>
 
 <div class="example-wrapper">
-    <h2>Créér un nouveau DCI</h2>
+    <h2>{{action}}</h2>
 
     <div class="">
         {{form_start(form)}}
+            {% if action == "Editer le DCI" %}
+            {{form_row(form.name, {label : currentDci.name})}}
+            {% else %}
             {{form_row(form.name, {label : "Nom du DCI"})}}
+            {% endif %}
             <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <a href="{{path('app_admin_dci')}}" class="btn btn-secondary">Annuler</a>
         {{form_end(form)}}
     </div>
     <section class="mt-5">
@@ -27,7 +34,7 @@
                 {% for item in dci %}
                     <li>
                         {{item.name}}
-                        <a href="" class="btn btn-outline-primary">Editer</a>
+                        <a href="{{path('app_admin_dci_edit', {id: item.id})}}" class="btn btn-outline-primary">Editer</a>
                         <a href="" class="btn btn-outline-danger">Supprimer</a>
                     </li>
                 {% else %}

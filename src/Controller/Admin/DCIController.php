@@ -16,10 +16,11 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/admin/dci')]
 final class DCIController extends AbstractController
 {
+    #[Route("/{id}/edit", name: "app_admin_dci_edit", methods: ["GET", "POST"], requirements: ["id"=>"\d+"])]
     #[Route('/', name: 'app_admin_dci', methods: ["GET", "POST"])]
-    public function index(Request $request, EntityManagerInterface $manager, DciRepository $repository): Response
+    public function index(?Dci $dci, Request $request, EntityManagerInterface $manager, DciRepository $repository): Response
     {
-        $dci = new Dci();
+        $dci ??= new Dci();
         $form = $this->createForm(DciForm::class, $dci);
 
         $form->handleRequest($request);
@@ -35,9 +36,11 @@ final class DCIController extends AbstractController
             $request->query->get(key: 'page', default: 1),
             maxPerPage: 25
         );
+        
         return $this->render('admin/dci/index.html.twig', [
             'form' => $form,
             'dci' => $dciItems,
+            'currentDci' => $dci,
         ]);
     }
 }
