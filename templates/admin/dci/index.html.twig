@@ -35,7 +35,11 @@
                     <li>
                         {{item.name}}
                         <a href="{{path('app_admin_dci_edit', {id: item.id})}}" class="btn btn-outline-primary">Editer</a>
-                        <a href="" class="btn btn-outline-danger">Supprimer</a>
+                        {% if item.isEnabled %}
+                        <a href="{{path("app_admin_dci_ability", {action: "is_desabled", id: item.id})}}" class="btn btn-outline-danger">Désactiver</a>
+                        {% else %}
+                        <a href="{{path("app_admin_dci_ability", {action: "is_enabled", id: item.id})}}" class="btn btn-outline-success">Activer</a>
+                        {% endif %}
                     </li>
                 {% else %}
                     <p>Aucun DCI disponible actuellement.</p>

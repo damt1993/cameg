@@ -24,6 +24,9 @@ class Dci
     #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'dci')]
     private Collection $products;
 
+    #[ORM\Column]
+    private ?bool $isEnabled = null;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -72,6 +75,18 @@ class Dci
                 $product->setDci(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isEnabled(): ?bool
+    {
+        return $this->isEnabled;
+    }
+
+    public function setIsEnabled(bool $isEnabled): static
+    {
+        $this->isEnabled = $isEnabled;
 
         return $this;
     }

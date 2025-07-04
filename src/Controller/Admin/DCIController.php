@@ -43,4 +43,17 @@ final class DCIController extends AbstractController
             'currentDci' => $dci,
         ]);
     }
+
+    #[Route("/{action}/{id}", name: "app_admin_dci_ability", methods: ["GET"], requirements: ["id" => "\d+"])]
+    public function ability(?Dci $dci ,Request $request, EntityManagerInterface $manager): Response
+    {
+        $action = $request->get("action");
+        if($action=="is_enabled"){
+            $dci->setIsEnabled(true);
+        } elseif ($action=="is_desabled") {
+            $dci->setIsEnabled(false);
+        }
+        $manager->flush();
+        return $this->redirectToRoute("app_admin_dci");
+    }
 }
