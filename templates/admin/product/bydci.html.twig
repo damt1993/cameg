@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% set action = app.current_route == "app_admin_product_bydci" ? "Créer un nouveau produit pour" : "Editer un produit pour" %}
+
+{% block title %}Produits{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h3>{{action}} "{{dci.name}}"</h3>
+
+    {{form_start(form)}}
+        {{form_row(form.name, {label: "Nom du produit"})}}
+        {{form_row(form.price, {label: "Prix"})}}
+        <button type="submit" class="btn btn-primary">Enregister</button>
+        <a href="{{path('app_admin_product_bydci', {dci: dci.id})}}" class="btn btn-secondary">Annuler</a>
+    {{form_end(form)}}
+    <div class="card">
+        {% if products is not null %}
+            <h3 class="card-title text-bg-success text-center">Liste des produits de la DCI "{{dci.name}}"</h3>
+            <div class="card-body">
+                <ul class="list-group">
+                    <p>{{pagerfanta(products)}}</p>
+                    {% for product in products %}
+                        <li class="list-group-item d-flex justify-content-between">
+                            {{product.name}}
+                            <span>
+                                <a href="{{path('app_admin_product_edit', {dci: dci.id, product: product.id})}}" class="btn btn-outline-primary">Editer</a>
+                                {% if product.isEnabled %}
+                                <a href="{{path('app_admin_product_ability', {ability: "enabled", dci: dci.id, id: product.id})}}" class="btn btn-outline-danger">Désactiver</a>
+                                {% else %}
+                                <a href="{{path('app_admin_product_ability', {ability: "abled", dci: dci.id, id: product.id})}}" class="btn btn-outline-success">Activer</a>
+                                {% endif %}
+                            </span>
+                        </li>
+                    {% else %}
+                        <p>Aucun produit n'existe pour cette DCI</p>
+                    {% endfor %}
+                    <p>{{pagerfanta(products)}}</p>
+                </ul>
+            </div>
+            {% else %}
+        <p>Le DCI indiqué n'existe pas</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

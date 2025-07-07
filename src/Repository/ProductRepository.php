@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -40,4 +41,18 @@ class ProductRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findAllProductByDci(int $dci): QueryBuilder
+    {
+        return $this->createQueryBuilder("p")
+                        ->andWhere("p.dci = :dci")
+                        ->setParameter("dci", $dci)
+                        ->orderBy("p.name", "ASC");
+    }
+
+    public function findAllProduct(): QueryBuilder
+    {
+        return $this->createQueryBuilder("p")
+                        ->orderBy("p.name", "ASC");
+    }
 }

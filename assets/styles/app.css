@@ -1,3 +1,14 @@
 body {
     background-color: skyblue;
 }
+
+.list-group-item:hover {
+    background-color: #1fa969;
+    color: white;
+}
+
+.list-group-item:hover a {
+    color: white;
+    border-color: white;
+}
+

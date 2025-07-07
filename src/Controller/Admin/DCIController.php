@@ -25,6 +25,7 @@ final class DCIController extends AbstractController
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $dci->setIsEnabled(true);
             $manager->persist($dci);
             $manager->flush();
 
@@ -34,7 +35,7 @@ final class DCIController extends AbstractController
         $dciItems = Pagerfanta::createForCurrentPageWithMaxPerPage(
             new QueryAdapter($repository->findAllDci()),
             $request->query->get(key: 'page', default: 1),
-            maxPerPage: 25
+            maxPerPage: 10
         );
         
         return $this->render('admin/dci/index.html.twig', [
@@ -44,16 +45,25 @@ final class DCIController extends AbstractController
         ]);
     }
 
-    #[Route("/{action}/{id}", name: "app_admin_dci_ability", methods: ["GET"], requirements: ["id" => "\d+"])]
-    public function ability(?Dci $dci ,Request $request, EntityManagerInterface $manager): Response
+    #[Route("/{ability}/{id}", name: "app_admin_dci_ability", methods: ["GET"], requirements: ["id" => "\d+"])]
+    public function ability(?Dci $dci , EntityManagerInterface $manager, $ability): Response
     {
-        $action = $request->get("action");
-        if($action=="is_enabled"){
+        if ($ability=="able"){
             $dci->setIsEnabled(true);
-        } elseif ($action=="is_desabled") {
+            $manager->flush();
+        } else if ($ability == "disable"){
             $dci->setIsEnabled(false);
+            $manager->flush();    
         }
-        $manager->flush();
         return $this->redirectToRoute("app_admin_dci");
+    }
+
+    #[Route("/show/{id}", name: "app_admin_dci_show", methods: ["GET"], requirements: ["id"=>"\d+"])]
+    public function show(?Dci $dci): Response
+    {
+        
+        return $this->render('admin/dci/show.html.twig', [
+            'dci'=>$dci
+        ]);
     }
 }

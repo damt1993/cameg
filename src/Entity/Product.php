@@ -16,12 +16,15 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $price = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?dci $dci = null;
+    private ?Dci $dci = null;
+
+    #[ORM\Column]
+    private ?bool $isEnabled = null;
 
     public function getId(): ?int
     {
@@ -52,14 +55,26 @@ class Product
         return $this;
     }
 
-    public function getDci(): ?dci
+    public function getDci(): ?Dci
     {
         return $this->dci;
     }
 
-    public function setDci(?dci $dci): static
+    public function setDci(?Dci $dci): static
     {
         $this->dci = $dci;
+
+        return $this;
+    }
+
+    public function isEnabled(): ?bool
+    {
+        return $this->isEnabled;
+    }
+
+    public function setIsEnabled(bool $isEnabled): static
+    {
+        $this->isEnabled = $isEnabled;
 
         return $this;
     }
