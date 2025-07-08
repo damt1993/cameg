@@ -3,39 +3,27 @@
 namespace App\Form;
 
 use App\Entity\Dci;
-use App\Repository\DciRepository;
+use App\Entity\Product;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProductAllForm extends AbstractType
+class ProductallForm extends AbstractType
 {
-    public function __construct(private readonly DciRepository $dciRepository)
-    {
-        
-    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class, [
-                "mapped"=>false,
-                "attr"=> [
-                    "autofocus"=>true,
+                "attr" => [
+                    "autofocus" => true,
                 ]
             ])
-            ->add('price', MoneyType::class, [
-                "mapped"=>false,
-                "required"=>false,
-                "grouping" => true,
-                'divisor' => 100,
-            ])
+            ->add('price', IntegerType::class)
             ->add('dci', EntityType::class, [
-                "mapped"=>false,
                 'class' => Dci::class,
-                "query_builder"=> $this->dciRepository->findAllDci(),
                 'choice_label' => 'name',
             ])
         ;
@@ -44,7 +32,7 @@ class ProductAllForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => Product::class,
         ]);
     }
 }

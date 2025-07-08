@@ -14,11 +14,10 @@
     <h3>{{action}} "{{dci.name}}"</h3>
 
     {{form_start(form)}}
-        {{form_row(form.dci, {label: "Choisir la DCI du produit"})}}
         {{form_row(form.name, {label: "Nom du produit"})}}
         {{form_row(form.price, {label: "Prix"})}}
         <button type="submit" class="btn btn-primary">Enregister</button>
-        <a href="{{path('app_admin_product_all')}}" class="btn btn-secondary">Annuler</a>
+        <a href="{{path('app_admin_product_bydci', {dci: dci.id, productPage: page})}}" class="btn btn-secondary">Annuler</a>
     {{form_end(form)}}
     <div class="card">
         {% if products is not null %}
@@ -30,11 +29,11 @@
                         <li class="list-group-item d-flex justify-content-between">
                             {{product.name}}
                             <span>
-                                <a href="{{path('app_admin_product_all_edit', {dci: dci.id, product: product.id})}}" class="btn btn-outline-primary">Editer</a>
+                                <a href="{{path('app_admin_product_edit', {dci: dci.id, product: product.id, productPage: page})}}" class="btn btn-outline-primary">Editer</a>
                                 {% if product.isEnabled %}
-                                <a href="{{path('app_admin_product_all_ability', {ability: "enabled", dci: dci.id, id: product.id})}}" class="btn btn-outline-danger">Désactiver</a>
+                                <a href="{{path('app_admin_product_ability', {ability: "enabled", dci: dci.id, id: product.id, productPage: page})}}" class="btn btn-outline-danger">Désactiver</a>
                                 {% else %}
-                                <a href="{{path('app_admin_product_all_ability', {ability: "abled", dci: dci.id, id: product.id})}}" class="btn btn-outline-success">Activer</a>
+                                <a href="{{path('app_admin_product_ability', {ability: "abled", dci: dci.id, id: product.id, productPage: page})}}" class="btn btn-outline-success">Activer</a>
                                 {% endif %}
                             </span>
                         </li>
@@ -48,5 +47,6 @@
         <p>Le DCI indiqué n'existe pas</p>
         {% endif %}
     </div>
+    <a href="{{path('app_admin_dci', {page: page})}}" class="btn btn-primary"><< Retour aux DCI</a>
 </div>
 {% endblock %}

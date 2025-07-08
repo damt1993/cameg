@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% set action = app.current_route == "app_admin_product_bydci" ? "Créer un nouveau produit pour" : "Editer un produit pour" %}
+{% set action = app.current_route == "app_admin_product_all" ? "Créer un nouveau produit" : "Editer un produit" %}
 
 {% block title %}Produits{% endblock %}
 
@@ -11,17 +11,18 @@
 </style>
 
 <div class="example-wrapper">
-    <h3>{{action}} "{{dci.name}}"</h3>
+    <h3>{{action}}</h3>
 
     {{form_start(form)}}
+        {{form_row(form.dci, {label: "Choisir la DCI du produit"})}}
         {{form_row(form.name, {label: "Nom du produit"})}}
         {{form_row(form.price, {label: "Prix"})}}
         <button type="submit" class="btn btn-primary">Enregister</button>
-        <a href="{{path('app_admin_product_bydci', {dci: dci.id})}}" class="btn btn-secondary">Annuler</a>
+        <a href="{{path('app_admin_product_all', {page: page})}}" class="btn btn-secondary">Annuler</a>
     {{form_end(form)}}
     <div class="card">
         {% if products is not null %}
-            <h3 class="card-title text-bg-success text-center">Liste des produits de la DCI "{{dci.name}}"</h3>
+            <h3 class="card-title text-bg-success text-center">Liste de tout les produits</h3>
             <div class="card-body">
                 <ul class="list-group">
                     <p>{{pagerfanta(products)}}</p>
@@ -29,11 +30,11 @@
                         <li class="list-group-item d-flex justify-content-between">
                             {{product.name}}
                             <span>
-                                <a href="{{path('app_admin_product_edit', {dci: dci.id, product: product.id})}}" class="btn btn-outline-primary">Editer</a>
+                                <a href="{{path('app_admin_product_all_edit', {dci: product.dci.id, product: product.id, page: page})}}" class="btn btn-outline-primary">Editer</a>
                                 {% if product.isEnabled %}
-                                <a href="{{path('app_admin_product_ability', {ability: "enabled", dci: dci.id, id: product.id})}}" class="btn btn-outline-danger">Désactiver</a>
+                                <a href="{{path('app_admin_product_all_ability', {ability: "enabled", dci: product.dci.id, product: product.id, page: page})}}" class="btn btn-outline-danger">Désactiver</a>
                                 {% else %}
-                                <a href="{{path('app_admin_product_ability', {ability: "abled", dci: dci.id, id: product.id})}}" class="btn btn-outline-success">Activer</a>
+                                <a href="{{path('app_admin_product_all_ability', {ability: "abled", dci: product.dci.id, product: product.id, page: page})}}" class="btn btn-outline-success">Activer</a>
                                 {% endif %}
                             </span>
                         </li>
@@ -43,8 +44,8 @@
                     <p>{{pagerfanta(products)}}</p>
                 </ul>
             </div>
-            {% else %}
-        <p>Le DCI indiqué n'existe pas</p>
+        {% else %}
+        <p>Aucun produit n'est enregistré</p>
         {% endif %}
     </div>
 </div>

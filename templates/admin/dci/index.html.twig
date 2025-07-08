@@ -21,7 +21,7 @@
             {{form_row(form.name, {label : "Nom du DCI"})}}
             {% endif %}
             <button type="submit" class="btn btn-primary">Enregistrer</button>
-            <a href="{{path('app_admin_dci')}}" class="btn btn-secondary">Annuler</a>
+            <a href="{{path('app_admin_dci', {page: page})}}" class="btn btn-secondary">Annuler</a>
         {{form_end(form)}}
     </div>
     <section class="mt-5 card">
@@ -35,12 +35,12 @@
                     <li class="list-group-item d-flex justify-content-between">
                         {{item.name}}
                         <span>
-                            <a href="{{path("app_admin_product_bydci", {dci: item.id})}}" class="btn btn-outline-secondary">Détails</a>
-                            <a href="{{path('app_admin_dci_edit', {id: item.id})}}" class="btn btn-outline-primary">Editer</a>
+                            <a href="{{path("app_admin_product_bydci", {dci: item.id, productPage: page})}}" class="btn btn-outline-secondary">Détails</a>
+                            <a href="{{path('app_admin_dci_edit', {id: item.id, page: page})}}" class="btn btn-outline-primary">Editer</a>
                             {% if item.isEnabled %}
-                            <a href="{{path("app_admin_dci_ability", {ability: "disable", id: item.id})}}" class="btn btn-outline-danger">Désactiver</a>
+                            <a href="{{path("app_admin_dci_ability", {ability: "disable", id: item.id, page: page})}}" class="btn btn-outline-danger">Désactiver</a>
                             {% else %}
-                            <a href="{{path("app_admin_dci_ability", {ability: "able", id: item.id})}}" class="btn btn-outline-success">Activer</a>
+                            <a href="{{path("app_admin_dci_ability", {ability: "able", id: item.id, page: page})}}" class="btn btn-outline-success">Activer</a>
                             {% endif %}
                         </span>
                     </li>
