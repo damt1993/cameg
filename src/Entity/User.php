@@ -36,6 +36,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[ORM\OneToOne(mappedBy: 'userId', cascade: ['persist', 'remove'])]
+    private ?Collaborator $collaborator = null;
+
+    #[ORM\OneToOne(mappedBy: 'userId', cascade: ['persist', 'remove'])]
+    private ?Customer $customer = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -107,5 +113,44 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getCollaborator(): ?Collaborator
+    {
+        return $this->collaborator;
+    }
+
+    public function setCollaborator(Collaborator $collaborator): static
+    {
+        // set the owning side of the relation if necessary
+        if ($collaborator->getUserId() !== $this) {
+            $collaborator->setUserId($this);
+        }
+
+        $this->collaborator = $collaborator;
+
+        return $this;
+    }
+
+    public function getCustomer(): ?Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(?Customer $customer): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($customer === null && $this->customer !== null) {
+            $this->customer->setUserId(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($customer !== null && $customer->getUserId() !== $this) {
+            $customer->setUserId($this);
+        }
+
+        $this->customer = $customer;
+
+        return $this;
     }
 }

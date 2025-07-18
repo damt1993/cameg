@@ -9,12 +9,17 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Ajout d'informations du collaborateur</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/dspc/Documents/Project/dev/cameg/src/Controller/CollaboratorController.php</code></li>
-        <li>Your template at <code>C:/Users/dspc/Documents/Project/dev/cameg/templates/collaborator/index.html.twig</code></li>
-    </ul>
+    {{ form_start(form) }}
+        {{ form_row(form.name, {
+            label: "Nom complet"
+        }) }}
+        {{ form_row(form.telephone, {
+            label: "Contact du collaborateur"
+        }) }}
+
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    {{ form_end(form) }}
 </div>
 {% endblock %}

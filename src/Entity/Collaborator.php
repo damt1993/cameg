@@ -27,6 +27,10 @@ class Collaborator
     #[ORM\Column]
     private ?\DateTimeImmutable $lastConnectedAt = null;
 
+    #[ORM\OneToOne(inversedBy: 'collaborator', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $userId = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -64,6 +68,18 @@ class Collaborator
     public function setLastConnectedAt(\DateTimeImmutable $lastConnectedAt): static
     {
         $this->lastConnectedAt = $lastConnectedAt;
+
+        return $this;
+    }
+
+    public function getUserId(): ?User
+    {
+        return $this->userId;
+    }
+
+    public function setUserId(User $userId): static
+    {
+        $this->userId = $userId;
 
         return $this;
     }
