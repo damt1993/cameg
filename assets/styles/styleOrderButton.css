@@ -1,0 +1,15 @@
+.quantity input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.quantity input[type=number]::-webkit-inner-spin-button,
+.quantity input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.quantity input[type=number]::-o-inner-spin-button,
+.quantity input[type=number]::-o-outer-spin-button {
+    -o-appearance: none;
+    margin: 0;
+}

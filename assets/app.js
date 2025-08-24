@@ -1,4 +1,6 @@
 import './bootstrap.js';
+import './js/jquery-3.7.1.min.js'
+import './js/scriptOrderButton.js'
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -7,5 +9,6 @@ import './bootstrap.js';
  */
 import './vendor/bootstrap/dist/css/bootstrap.min.css';
 import './styles/app.css';
+import './styles/styleOrderButton.css'
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

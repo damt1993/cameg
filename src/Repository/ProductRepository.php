@@ -55,4 +55,12 @@ class ProductRepository extends ServiceEntityRepository
         return $this->createQueryBuilder("p")
                         ->orderBy("p.name", "ASC");
     }
+
+    public function findAllProductSearch(string $filter): QueryBuilder
+    {
+        return $this->createQueryBuilder("p")
+                        ->andWhere('p.name LIKE :filter OR p.description LIKE :filter')
+                        ->setParameter('filter', '%'.$filter.'%')
+                        ->orderBy("p.name", "ASC");
+    }
 }

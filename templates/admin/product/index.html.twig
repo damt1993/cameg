@@ -16,6 +16,12 @@
     {{form_start(form)}}
         {{form_row(form.name, {label: "Nom du produit"})}}
         {{form_row(form.price, {label: "Prix"})}}
+        {{form_row(form.publicPrice, {
+            label: "Prix public"
+        })}}
+        {{form_row(form.peromptAt, {
+            label: "Date de péremption"
+        })}}
         <button type="submit" class="btn btn-primary">Enregister</button>
         <a href="{{path('app_admin_product_bydci', {dci: dci.id, productPage: page})}}" class="btn btn-secondary">Annuler</a>
     {{form_end(form)}}

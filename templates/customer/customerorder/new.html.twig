@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CustomerOrderController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <section class="orderChoice">
+        {{form_start(form)}}
+        <div class="mb-3 row d-flex">
+            <div class="col-12">
+                {{form_row(form.product, {
+                    label: " "
+                })}}
+            </div>
+        </div>
+        <div class="mb-3 row d-flex">
+            <div class="col-md-8 product">
+                Nom du produit : <span></span>
+            </div>
+            <div class="col-md-3 d-flex">
+                Quantité {% include "quantity.html.twig" %}
+            </div>
+        </div>
+        <div class="mb-3 row d-flex justify-content-between">
+            <div class="col-md-3 price">
+                P. Achat : <span></span>
+            </div>
+            <div class="col-md-3 publicPrice">
+                P. Public : <span></span>
+            </div>
+            <div class="col-md-6 peromptAt">
+                Date de péremption : <span></span>
+            </div>
+        </div>
+        <div class=" text-end">
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+        </div>
+        {{form_end(form)}}
+    </section>
+
+    <section class="card mt-5">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-3"><h5>Nom du produit</h5></div>
+                <div class="col-2 text-center"><h5>Quantité</h5></div>
+                <div class="col-2"><h5>P. Achat</h5></div>
+                <div class="col-2"><h5>P. Public</h5></div>
+                <div class="col-2"><h5>Montant</h5></div>
+            </div>
+        </div>
+        <div class="card-body">
+            {% for orderItem in phpOrderItem %}
+                <div id="item".orderItem['id'] class="row mb-3">
+                    <div class="col-4">
+                        <button class="btn btn-outline-danger">X</button>
+                        {{ orderItem['name'] }}
+                    </div>
+                    <div class="col-2 orderQuantity">{% include "quantity.html.twig" %}</div>
+                    <div class="col-2 orderPrice">{{ orderItem['price'] }}</div>
+                    <div class="col-2 orderPublicPrice">{{ orderItem['publicPrice'] }}</div>
+                    <div class="col-2 orderValue">Montant</div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+<script>
+    const jsProduct = {{ product|json_encode|raw }};
+    const orderItemer = {{ orderItemer|raw }};
+</script>
+{% endblock %}
