@@ -1,0 +1,23 @@
+.searchbarAutocomplete {
+  position: relative;
+}
+
+.searchbarAutocompleteContainer {
+  background-color: white;
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  left: 0;
+  overflow-y: auto;
+  max-height: 500%;
+}
+
+.searchbarAutocompleteContainer div {
+  padding: 1%;
+  cursor: pointer;
+}
+
+.searchbarAutocompleteContainer div:hover , .currentItem{
+  background-color: rgb(49, 49, 174);
+  color: white;
+}

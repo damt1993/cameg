@@ -9,6 +9,44 @@
 </style>
 
 <div class="example-wrapper">
+
+  <section class="orderCreator">
+    <h4 class=" text-center">Nouvelle commande</h4>
+    {% include "components/searchbarAutocomplete.html.twig" %}
+  </section>
+
+    <section class="">
+        <form autocomplete="off" class="container m-5">
+            <h2>Autocomplete Example</h2>
+            <div class="autocomplete">
+                <input type="search" name="myInput" id="search-autocomplete" class="form-control" placeholder="Rechercher...">
+            </div>
+            <button type="submit" class="btn btn-outline-success">Ajouter</button>
+        </form>
+    </section>
+
+    <section class="searchProduct m-5">
+        <div>
+            <input type="search" value="" name="searchProduct" placeholder="Rechercher un produit..." id="searchProduct" class="form-control" autofocus>
+        </div>
+    </section>
+
+    <section class="searchbar">
+        <div class="dropdown">
+            <input type="search" name="search" value="" id="dropdownMenuInput" class="form-control mb-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <ul class="dropdown-menu w-100 mt-0" aria-labelledby="dropdownMenuInput">
+                <li class="dropdown-item disabled">Veuillez saisir le nom d'un produit</li>
+            </ul>
+        </div>
+    </section>
+    <section class="searchbar1">
+        <div class="dropdown">
+            <input type="search" name="search" value="" id="dropdownMenuInput" class="form-control mb-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <ul class="dropdown-menu w-100 mt-0" aria-labelledby="dropdownMenuInput">
+                <option class="dropdown-item disabled">Veuillez saisir le nom d'un produit</option>
+            </ul>
+        </div>
+    </section>
     <section class="orderChoice">
         {{form_start(form)}}
         <div class="mb-3 row d-flex">
@@ -22,8 +60,8 @@
             <div class="col-md-8 product">
                 Nom du produit : <span></span>
             </div>
-            <div class="col-md-3 d-flex">
-                Quantité {% include "quantity.html.twig" %}
+            <div class="col-md-3 d-flex quantityField">
+                Quantité {% include "components/quantity.html.twig" %}
             </div>
         </div>
         <div class="mb-3 row d-flex justify-content-between">
@@ -56,12 +94,24 @@
         </div>
         <div class="card-body">
             {% for orderItem in phpOrderItem %}
-                <div id="item".orderItem['id'] class="row mb-3">
+                <div id="item{{orderItem['id']}}" class="row mb-3">
                     <div class="col-4">
                         <button class="btn btn-outline-danger">X</button>
                         {{ orderItem['name'] }}
                     </div>
-                    <div class="col-2 orderQuantity">{% include "quantity.html.twig" %}</div>
+                    <div class="col-2 orderQuantity">
+                        <div class="quantity">
+                            <div class="input-group">
+                                <span class="input-group-btn input-group-prepend">
+                                    <button class="btn btn-dark remove" type="button">-</button>
+                                </span>
+                                <input type="number" name="quantity" id="" class="form-control" value="{{ orderItem['quantity'] }}" min="0" width="100">
+                                <span class="input-group-btn intup-group-append">
+                                    <button class="btn btn-dark add" type="button">+</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-2 orderPrice">{{ orderItem['price'] }}</div>
                     <div class="col-2 orderPublicPrice">{{ orderItem['publicPrice'] }}</div>
                     <div class="col-2 orderValue">Montant</div>
@@ -75,3 +125,4 @@
     const orderItemer = {{ orderItemer|raw }};
 </script>
 {% endblock %}
+

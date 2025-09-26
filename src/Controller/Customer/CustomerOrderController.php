@@ -112,7 +112,7 @@ final class CustomerOrderController extends AbstractController
                             ".htmlspecialchars($item['name'])."
                         </div>
                         <div class='col-2 orderQuantityAjax'>
-                            <div class='quantity'>
+                            <div class='newQuantity'>
                                 <div class='input-group'>
                                     <span class='input-group-btn input-group-prepend'>
                                         <button class='btn btn-dark remove' type='button'>-</button>

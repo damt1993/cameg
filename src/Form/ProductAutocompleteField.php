@@ -16,9 +16,6 @@ class ProductAutocompleteField extends AbstractType
     {
         $resolver->setDefaults([
             'class' => Product::class,
-            'attr'=>[
-                'autofocus'=>true,
-            ],
             'placeholder' => 'Veuillez entrer un produit',
             'choice_label' => 'name',
             'query_filter'=> function(ProductRepository $productRepository, string $filter){

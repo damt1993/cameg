@@ -1,7 +1,7 @@
 {
     "client": "labaraka",
     "date": {
-        "date": "2025-08-24 01:41:55.331378",
+        "date": "2025-08-24 14:24:55.986169",
         "timezone_type": 3,
         "timezone": "Europe\/Berlin"
     },
@@ -10,186 +10,186 @@
         {
             "id": 13,
             "name": "Zamox 1G B\/16",
-            "price": "4215",
-            "publicPrice": "0",
+            "price": 4215,
+            "publicPrice": 0,
             "peromptAt": "25 08 2035",
-            "quantity": 4
+            "quantity": 2
         },
         {
-            "id": 5,
-            "name": "Doxynor 100",
-            "price": "3600",
-            "publicPrice": "0",
+            "id": 12,
+            "name": "Artemether TM B6 inj",
+            "price": 2490,
+            "publicPrice": 0,
             "peromptAt": "25 08 2035",
-            "quantity": 3
-        },
-        {
-            "id": 4,
-            "name": "Doxycycline 200 CREAT",
-            "price": "5415",
-            "publicPrice": "0",
-            "peromptAt": "25 08 2035",
-            "quantity": 4
+            "quantity": 2
         },
         {
             "id": 3,
             "name": "Doxycycline 100 CREAT",
-            "price": "3450",
-            "publicPrice": "0",
+            "price": 3450,
+            "publicPrice": 0,
             "peromptAt": "25 08 2035",
+            "quantity": 2
+        },
+        {
+            "id": 13,
+            "name": "Zamox 1G B\/16",
+            "price": 4215,
+            "publicPrice": 0,
+            "peromptAt": "25 08 2035",
+            "quantity": 2
+        },
+        {
+            "id": 13,
+            "name": "Zamox 1G B\/16",
+            "price": 4215,
+            "publicPrice": 0,
+            "peromptAt": "25 08 2035",
+            "quantity": 2
+        },
+        {
+            "id": 12,
+            "name": "Artemether TM B6 inj",
+            "price": 2490,
+            "publicPrice": 0,
+            "peromptAt": "25 08 2035",
+            "quantity": 9
+        },
+        {
+            "id": 12,
+            "name": "Artemether TM B6 inj",
+            "price": 2490,
+            "publicPrice": 0,
+            "peromptAt": "25 08 2035",
+            "quantity": 5
+        },
+        {
+            "id": 12,
+            "name": "Artemether TM B6 inj",
+            "price": 2490,
+            "publicPrice": 0,
+            "peromptAt": "25 08 2035",
+            "quantity": 2
+        },
+        {
+            "id": 6,
+            "name": "Aspegic 100 Sachet",
+            "price": 1200,
+            "publicPrice": 1605,
+            "peromptAt": "25 08 2035",
+            "quantity": 2
+        },
+        {
+            "id": 13,
+            "name": "Zamox 1G B\/16",
+            "price": 4215,
+            "publicPrice": 0,
+            "peromptAt": "25 08 2035",
+            "quantity": 2
+        },
+        {
+            "id": 11,
+            "name": "Aspirine Cardio",
+            "price": 1535,
+            "publicPrice": 0,
+            "peromptAt": "25 08 2035",
+            "quantity": 8
+        },
+        {
+            "id": 11,
+            "name": "Aspirine Cardio",
+            "price": 1535,
+            "publicPrice": 0,
+            "peromptAt": "25 08 2035",
+            "quantity": 5
+        },
+        {
+            "id": 11,
+            "name": "Aspirine Cardio",
+            "price": 1535,
+            "publicPrice": 0,
+            "peromptAt": "25 08 2035",
+            "quantity": 8
+        },
+        {
+            "id": 13,
+            "name": "Zamox 1G B\/16",
+            "price": 4215,
+            "publicPrice": 0,
+            "peromptAt": "25 08 2035",
+            "quantity": 3
+        },
+        {
+            "id": 5,
+            "name": "Doxynor 100",
+            "price": 3600,
+            "publicPrice": 0,
+            "peromptAt": "25 08 2035",
+            "quantity": 2
+        },
+        {
+            "id": 4,
+            "name": "Doxycycline 200 CREAT",
+            "price": 5415,
+            "publicPrice": 0,
+            "peromptAt": "25 08 2035",
+            "quantity": 58
+        },
+        {
+            "id": 9,
+            "name": "Aspegic 500 Sachet",
+            "price": 1630,
+            "publicPrice": 0,
+            "peromptAt": "25 08 2035",
+            "quantity": 5
+        },
+        {
+            "id": 8,
+            "name": "Aspegic 250 Sachet",
+            "price": 1325,
+            "publicPrice": 0,
+            "peromptAt": "26 10 2028",
+            "quantity": 25
+        },
+        {
+            "id": 12,
+            "name": "Artemether TM B6 inj",
+            "price": 2490,
+            "publicPrice": 0,
+            "peromptAt": "25 08 2035",
+            "quantity": 19
+        },
+        {
+            "id": 6,
+            "name": "Aspegic 100 Sachet",
+            "price": 1200,
+            "publicPrice": 1605,
+            "peromptAt": "25 08 2035",
+            "quantity": 6
+        },
+        {
+            "id": 4,
+            "name": "Doxycycline 200 CREAT",
+            "price": 5415,
+            "publicPrice": 0,
+            "peromptAt": "25 08 2035",
+            "quantity": 8
+        },
+        {
+            "id": 14,
+            "name": "Oxapen Cp",
+            "price": 6000,
+            "publicPrice": 0,
+            "peromptAt": "09 12 2031",
             "quantity": 3
         },
         {
             "id": 13,
             "name": "Zamox 1G B\/16",
-            "price": "4215",
-            "publicPrice": "0",
+            "price": 4215,
+            "publicPrice": 0,
             "peromptAt": "25 08 2035",
-            "quantity": 1
-        },
-        {
-            "id": 1,
-            "name": "Acide Acetylsalcylique 1G",
-            "price": "300",
-            "publicPrice": "0",
-            "peromptAt": "16 07 2025",
-            "quantity": 1
-        },
-        {
-            "id": "6",
-            "name": "Aspegic 100 Sachet",
-            "price": "1200",
-            "publicPrice": "1605",
-            "peromptAt": "25 08 2035",
-            "quantity": "4"
-        },
-        {
-            "id": "5",
-            "name": "Doxynor 100",
-            "price": "3600",
-            "publicPrice": "0",
-            "peromptAt": "25 08 2035",
-            "quantity": "3"
-        },
-        {
-            "id": "13",
-            "name": "Zamox 1G B\/16",
-            "price": "4215",
-            "publicPrice": "0",
-            "peromptAt": "25 08 2035",
-            "quantity": "4"
-        },
-        {
-            "id": "14",
-            "name": "Oxapen Cp",
-            "price": "6000",
-            "publicPrice": "0",
-            "peromptAt": "09 12 2031",
-            "quantity": "3"
-        },
-        {
-            "id": "6",
-            "name": "Aspegic 100 Sachet",
-            "price": "1200",
-            "publicPrice": "1605",
-            "peromptAt": "25 08 2035",
-            "quantity": "3"
-        },
-        {
-            "id": "3",
-            "name": "Doxycycline 100 CREAT",
-            "price": "3450",
-            "publicPrice": "0",
-            "peromptAt": "25 08 2035",
-            "quantity": "1"
-        },
-        {
-            "id": "13",
-            "name": "Zamox 1G B\/16",
-            "price": "4215",
-            "publicPrice": "0",
-            "peromptAt": "25 08 2035",
-            "quantity": "5"
-        },
-        {
-            "id": "3",
-            "name": "Doxycycline 100 CREAT",
-            "price": "3450",
-            "publicPrice": "0",
-            "peromptAt": "25 08 2035",
-            "quantity": "3"
-        },
-        {
-            "id": "12",
-            "name": "Artemether TM B6 inj",
-            "price": "2490",
-            "publicPrice": "0",
-            "peromptAt": "25 08 2035",
-            "quantity": "4"
-        },
-        {
-            "id": "13",
-            "name": "Zamox 1G B\/16",
-            "price": "4215",
-            "publicPrice": "0",
-            "peromptAt": "25 08 2035",
-            "quantity": "2"
-        },
-        {
-            "id": "8",
-            "name": "Aspegic 250 Sachet",
-            "price": "1325",
-            "publicPrice": "0",
-            "peromptAt": "26 10 2028",
-            "quantity": "3"
-        },
-        {
-            "id": "8",
-            "name": "Aspegic 250 Sachet",
-            "price": "1325",
-            "publicPrice": "0",
-            "peromptAt": "26 10 2028",
-            "quantity": "3"
-        },
-        {
-            "id": "11",
-            "name": "Aspirine Cardio",
-            "price": "1535",
-            "publicPrice": "0",
-            "peromptAt": "25 08 2035",
-            "quantity": "5"
-        },
-        {
-            "id": "4",
-            "name": "Doxycycline 200 CREAT",
-            "price": "5415",
-            "publicPrice": "0",
-            "peromptAt": "25 08 2035",
-            "quantity": "1"
-        },
-        {
-            "id": "3",
-            "name": "Doxycycline 100 CREAT",
-            "price": "3450",
-            "publicPrice": "0",
-            "peromptAt": "25 08 2035",
-            "quantity": "4"
-        },
-        {
-            "id": "7",
-            "name": "Aspegic 1000 Sachet",
-            "price": "1800",
-            "publicPrice": "0",
-            "peromptAt": "25 08 2035",
-            "quantity": "3"
-        },
-        {
-            "id": "13",
-            "name": "Zamox 1G B\/16",
-            "price": "4215",
-            "publicPrice": "0",
-            "peromptAt": "25 08 2035",
-            "quantity": "5"
+            "quantity": 6
         }
     ]
 }
