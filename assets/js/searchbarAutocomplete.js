@@ -1,26 +1,62 @@
-function reacter(dataSubmit){
-  const isParent = $(dataSubmit[1]).parents()[2];
-  const dataMatching = dataSubmit[0];
+function reacter(dataSubmit, parentData){
+  const isParent = $(parentData).parents()[2];
+
+  //Order manager
   if (isParent.classList.contains("orderCreator")){
-    $(".orderChoice .product span").text(dataMatching.name);
-    $(".orderChoice .price span").text(dataMatching.price);
-    $(".orderChoice .publicPrice span").text(dataMatching.publicPrice);
-    $(".orderChoice .peromptAt span").text(dataMatching.peromptAt);
-    $(".orderChoice .quantity input").val(0).focus().select();
+    $(".orderChoice .product span").text(dataSubmit.name);
+    $(".orderChoice .price span").text(dataSubmit.price+" F Cfa");
+    $(".orderChoice .publicPrice span").text(dataSubmit.publicPrice+" F Cfa");
+    $(".orderChoice .peromptAt span").text(dataSubmit.peromptAt);
+    $(".orderCreator .searchbarAutocomplete input").val("");
+    $(".orderChoice .quantityBox input").val(0).focus().select();
+    addOrderItem(dataSubmit);
   } else {
     console.log("Nosé passa");
   }
 }
 
-$(".orderCreator .searchbarAutocompleteContainer div").on("click", function(){
-  console.log("Yawé");
-});
+//Reinit order item information autocomplete
+function reinitOrderItemData() {
+  $(".orderChoice .product span").text("");
+  $(".orderChoice .price span").text("");
+  $(".orderChoice .publicPrice span").text("");
+  $(".orderChoice .peromptAt span").text("");
+}
 
 //Set the autofocus on
 $(".orderCreator .searchbarAutocomplete input").focus();
 
 //Initialise the searchbarAutocomplete
 searchbarAutocomplete($(".orderCreator .searchbarAutocomplete input"), jsProduct);
+
+
+//Adding order item function
+function addOrderItem(dataSubmit){
+  //Add new order item in the order list
+  $(".orderChoice form").one("submit", function (e) { 
+    e.preventDefault();
+    const submitter = e.target;
+    const quantitySubmit = parseInt(submitter.querySelector("input").value)
+    if (quantitySubmit>0){
+      dataSubmit.quantity = quantitySubmit;
+      
+      $.post("customerorder/update", dataSubmit,
+        function (data, textStatus, jqXHR) {
+          const dataReturn = data["data"];
+          if (dataReturn["id"]){
+            //Update the quantity
+            $("#input"+dataReturn["id"]).val(dataReturn["newQuantity"]);
+          } else {
+            //add the new html item
+            $(".orderList").prepend(dataReturn);
+          }
+        },
+        "json",
+      );
+    }
+  });
+
+}
 //Autocomplete function
 function searchbarAutocomplete(searchbarInputer, dataToAutocomplete){
   //index of the focuser
@@ -53,11 +89,13 @@ function searchbarAutocomplete(searchbarInputer, dataToAutocomplete){
       //Put the matching items in the listField
       matchingData.forEach(element => {
         const matchingItem = document.createElement("div");
+        matchingItem.setAttribute("id", "matchingItem"+element.id);
         matchingItem.innerHTML = element.name;
         //Event to appy when the user click on the matching item
         $(matchingItem).on("click", function(e){
           $(searchbarInputer).val(e.target.innerText);
-          reacter([element, this]);
+          const currentThis = this;
+          reacter(element, currentThis);
           deleteListDiv();
         });
         listDiv.appendChild(matchingItem);
@@ -90,7 +128,12 @@ function searchbarAutocomplete(searchbarInputer, dataToAutocomplete){
     }
     
     if(e.keyCode == 13){
-      $("."+searchbarInputer.attr("id")+"Container div")[currentItem].click();
+      const itemValid = $("."+searchbarInputer.attr("id")+"Container div")[currentItem];
+      if (itemValid){
+        $("."+searchbarInputer.attr("id")+"Container div")[currentItem].click();
+      } else {
+        reinitOrderItemData();
+      }
     }
   });
 

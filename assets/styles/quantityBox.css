@@ -1,0 +1,15 @@
+.quantityBox input, .newQuantityBox input {
+  -moz-appearance: textfield;
+}
+
+.quantityBox input::-webkit-inner-spin-button,
+.newQuantityBox input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.quantityBox input::-o-inner-spin-button,
+.newQuantityBox input::-o-outer-spin-button {
+  -o-appearance: none;
+  margin: 0;
+}
