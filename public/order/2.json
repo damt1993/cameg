@@ -8,36 +8,12 @@
     "commande": "labaraka2",
     "data": [
         {
-            "id": 3,
-            "name": "Doxycycline 100 CREAT",
-            "price": 3450,
+            "id": 1,
+            "name": "Acide Acetylsalcylique 1G",
+            "price": 300,
             "publicPrice": 0,
-            "peromptAt": "25 08 2035",
-            "quantity": 3
-        },
-        {
-            "id": 7,
-            "name": "Aspegic 1000 Sachet",
-            "price": 1800,
-            "publicPrice": 0,
-            "peromptAt": "25 08 2035",
-            "quantity": 5
-        },
-        {
-            "id": 8,
-            "name": "Aspegic 250 Sachet",
-            "price": 1325,
-            "publicPrice": 0,
-            "peromptAt": "26 10 2028",
-            "quantity": 5
-        },
-        {
-            "id": 4,
-            "name": "Doxycycline 200 CREAT",
-            "price": 5415,
-            "publicPrice": 0,
-            "peromptAt": "25 08 2035",
-            "quantity": 6
+            "peromptAt": "16 07 2025",
+            "quantity": 59
         },
         {
             "id": 2,
@@ -45,7 +21,7 @@
             "price": 60,
             "publicPrice": 200,
             "peromptAt": "12 05 2026",
-            "quantity": 2
+            "quantity": 6
         },
         {
             "id": 10,
@@ -56,20 +32,12 @@
             "quantity": 3
         },
         {
-            "id": 9,
-            "name": "Aspegic 500 Sachet",
-            "price": 1630,
-            "publicPrice": 0,
-            "peromptAt": "25 08 2035",
-            "quantity": 9
-        },
-        {
             "id": 11,
             "name": "Aspirine Cardio",
             "price": 1535,
             "publicPrice": 0,
             "peromptAt": "25 08 2035",
-            "quantity": 6
+            "quantity": 22
         },
         {
             "id": 12,
@@ -77,15 +45,15 @@
             "price": 2490,
             "publicPrice": 0,
             "peromptAt": "25 08 2035",
-            "quantity": 8
+            "quantity": 2
         },
         {
-            "id": 6,
-            "name": "Aspegic 100 Sachet",
-            "price": 1200,
-            "publicPrice": 1605,
+            "id": 3,
+            "name": "Doxycycline 100 CREAT",
+            "price": 3450,
+            "publicPrice": 0,
             "peromptAt": "25 08 2035",
-            "quantity": 1
+            "quantity": 7
         },
         {
             "id": 5,

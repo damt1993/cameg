@@ -139,7 +139,7 @@ final class CustomerOrderController extends AbstractController
                                         <span class='input-group-btn input-group-prepend'>
                                             <button class='btn btn-dark remove' type='button'>-</button>
                                         </span>
-                                        <input type='number' name='quantity' id='' class='form-control' value='".$itemOrder['quantity']."' min='0' width='100'>
+                                        <input type='number' name='quantity' id='input".$itemOrder['id']."' class='form-control' value='".$itemOrder['quantity']."' min='0' width='100'>
                                         <span class='input-group-btn intup-group-append'>
                                             <button class='btn btn-dark add' type='button'>+</button>
                                         </span>

@@ -21,6 +21,8 @@ function reinitOrderItemData() {
   $(".orderChoice .price span").text("");
   $(".orderChoice .publicPrice span").text("");
   $(".orderChoice .peromptAt span").text("");
+  $(".orderCreator .searchbarAutocomplete input").focus();
+  $(".orderChoice .quantityBox input").val(0);
 }
 
 //Set the autofocus on
@@ -53,6 +55,7 @@ function addOrderItem(dataSubmit){
         },
         "json",
       );
+      reinitOrderItemData();
     }
   });
 

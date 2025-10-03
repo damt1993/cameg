@@ -1,3 +1,5 @@
+    //Normal button action up and down
+
 $(".quantityBox span button").on("click", function (e) {
   e.preventDefault();
   let buttonClass = e.target.classList;
@@ -15,6 +17,7 @@ $(".quantityBox span button").on("click", function (e) {
 
 });
 
+    //Dynamic object created for action up and down
 $(document).on("click", ".newQuantityBox span button", function (e) {
   e.preventDefault();
   let buttonClass = e.target.classList;
@@ -34,6 +37,8 @@ $(document).on("click", ".newQuantityBox span button", function (e) {
   }
 });
 
+
+      //Modification of quantity after php adding
 $(".orderList .quantityBox span button").on("click", function (e) {
   e.preventDefault();
   let buttonClass = e.target.classList;
@@ -49,6 +54,28 @@ $(".orderList .quantityBox span button").on("click", function (e) {
 });
 
 
+//Enter touch option to modificate the php creation
+$(".orderList .quantityBox input").on("keyup", function (e) {
+  e.preventDefault();
+  if (e.keyCode == 13){
+    let input = e.target;
+    const id = parseInt($(e.target).attr("id").substr(5));
+    quantityUpdate(id, input);
+  }
+});
+
+//Enter touch to modificate the dynamic js creation
+$(document).on("keyup", ".newQuantityBox input", function (e) {
+  e.preventDefault();
+  if (e.keyCode == 13){
+    let input = e.target;
+    const id = parseInt($(e.target).attr("id").substr(5));
+    quantityUpdate(id, input);
+  }
+});
+
+
+//Modificate the quantity
 function quantityUpdate(id, inputValue){
   $.post("customerorder/quantityupdate",
     {
