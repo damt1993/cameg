@@ -2,12 +2,14 @@
 
 namespace App\Controller\Customer;
 
+use App\Entity\Customer;
 use App\Entity\Order;
 use App\Form\OrderForm;
 use App\Repository\ProductRepository;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -129,8 +131,8 @@ final class CustomerOrderController extends AbstractController
                     //Concive the item html for order basket
                     $returnValue = "
                         <div id='item".$id."' class='row mb-3'>
-                            <div class='col-4'>
-                                <button class='btn btn-outline-danger'>x</button>
+                            <div class='col-4 close-button'>
+                                <button class='btn btn-outline-danger'><i class='bi bi-trash3'></i></button>
                                 ".$itemOrder['name']."
                             </div>
                             <div class='col-2 newQuantityBox'>
@@ -211,5 +213,87 @@ final class CustomerOrderController extends AbstractController
         }
 
         return new JsonResponse(["data"=>"Quantité changé", "montant"=>$montant, "id"=>$id]);
+    }
+
+    #[Route('/saving', name: 'app_customer_customer_saving', methods: ["GET", "POST"])]
+    public function saving(EntityManagerInterface $manager, Order $order, ?Customer $customer)
+    {
+        /** @var User */
+        $user = $this->getUser();
+
+        //file directory
+        $file = 'order/'.$user->getId().'.json';
+        
+        //Verify if directory exist
+        if (is_file($file)){
+            //Get file content
+            $data = file_get_contents($file);
+        }
+        //Convert data in json to php object
+        $jsonData = json_decode($data, true);
+
+        if (count($jsonData["data"])>0){
+            $order->setCustomer($this->getUser());
+            $order->setProductList($jsonData["data"]);
+            $order->setOrderedAt(new \DateTimeImmutable("now", new DateTimeZone("GMT")));
+            $order->setOrderNumber($jsonData["commande"]);
+
+            $manager->persist($order);
+            $manager->flush();
+
+            //delete the json file who contain the order
+            unlink($file);
+        }
+
+
+        return $this->redirectToRoute("app_customer_customerorder_new");
+
+    }
+
+    #[Route('/deleteproduct', name: 'app_customer_customer_deleteproduct', methods: ["GET", "POST"])]
+    public function deleteProduct(Request $request): JsonResponse
+    {
+        //Vérifier si c'est une requete ajax
+        if(!$request->isXmlHttpRequest()){
+            return new JsonResponse(['error'=> 'Cette requete n\'est pas une requète AJAX', 'status'=>'error']);
+        }
+
+        //Récupérer les données via JSON
+        $data = $request->getContent();
+        
+        //Vérifier si les données existent
+        if (isset($data)){
+            $item = $_POST;
+            $id = htmlspecialchars($item['id']);
+
+            /** @var User */
+            $user = $this->getUser();
+
+            //file directory
+            $file = 'order/'.$user->getId().'.json';
+            
+            //Verify if directory exist
+            if (is_file($file)){
+                //Get file content
+                $data = file_get_contents($file);
+            }
+
+            //Convert data in json to php object
+            $jsonData = json_decode($data, true);
+
+            if ($id>0){
+                for ($i=0; $i < count($jsonData["data"]); $i++) { 
+                    if ($jsonData["data"][$i]["id"]== $id){
+                        array_splice($jsonData["data"], $i, 1);
+                        break;
+                    }
+                }
+            }
+            //Ordor the content to be readible
+            $productItemOrder = json_encode($jsonData, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
+            //Put the new content in the order file
+            file_put_contents($file, $productItemOrder);
+        }
+        return new JsonResponse(["data"=>"Donné supprimé", "id"=>$id]);
     }
 }

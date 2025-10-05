@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
@@ -27,19 +28,13 @@ class Order
     private Collection $product;
 
     #[ORM\Column]
-    private ?int $quantity = null;
+    private ?\DateTimeImmutable $orderedAt = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private ?string $orderNumber = null;
 
-    #[ORM\Column]
-    private ?int $price = null;
-
-    #[ORM\Column]
-    private ?int $publicPrice = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $peromptAt = null;
+    #[ORM\Column(type: Types::ARRAY)]
+    private ?array $productList = null;
 
     public function __construct()
     {
@@ -87,62 +82,38 @@ class Order
         return $this;
     }
 
-    public function getQuantity(): ?int
+    public function getOrderedAt(): ?\DateTimeImmutable
     {
-        return $this->quantity;
+        return $this->orderedAt;
     }
 
-    public function setQuantity(int $quantity): static
+    public function setOrderedAt(\DateTimeImmutable $orderedAt): static
     {
-        $this->quantity = $quantity;
+        $this->orderedAt = $orderedAt;
 
         return $this;
     }
 
-    public function getName(): ?string
+    public function getOrderNumber(): ?string
     {
-        return $this->name;
+        return $this->orderNumber;
     }
 
-    public function setName(string $name): static
+    public function setOrderNumber(string $orderNumber): static
     {
-        $this->name = $name;
+        $this->orderNumber = $orderNumber;
 
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getProductList(): ?array
     {
-        return $this->price;
+        return $this->productList;
     }
 
-    public function setPrice(int $price): static
+    public function setProductList(array $productList): static
     {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    public function getPublicPrice(): ?int
-    {
-        return $this->publicPrice;
-    }
-
-    public function setPublicPrice(int $publicPrice): static
-    {
-        $this->publicPrice = $publicPrice;
-
-        return $this;
-    }
-
-    public function getPeromptAt(): ?\DateTimeImmutable
-    {
-        return $this->peromptAt;
-    }
-
-    public function setPeromptAt(?\DateTimeImmutable $peromptAt): static
-    {
-        $this->peromptAt = $peromptAt;
+        $this->productList = $productList;
 
         return $this;
     }

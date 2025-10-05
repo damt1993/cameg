@@ -88,3 +88,17 @@ function quantityUpdate(id, inputValue){
     "json"
   );
 }
+
+$(".orderList").on("click", "div[id^='item'] .close-button button", function(e){
+  const parentId = parseInt($(e.target).parents("div[id^='item']").attr('id').substr(4));
+  console.log(parentId);
+  $.post("customerorder/deleteproduct",
+    {
+      "id": parentId,
+    },
+    function (data, textStatus, jqXHR) {
+      $(".orderList #item"+data["id"]).remove();
+    },
+    "json"
+  );
+});
