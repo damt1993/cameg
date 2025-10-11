@@ -1,35 +1,10 @@
 {
     "client": "labaraka",
     "date": {
-        "date": "2025-10-04 18:28:41.351595",
+        "date": "2025-10-11 21:26:34.492239",
         "timezone_type": 2,
         "timezone": "GMT"
     },
     "commande": "labaraka2",
-    "data": [
-        {
-            "id": 5,
-            "name": "Doxynor 100",
-            "price": 3600,
-            "publicPrice": 0,
-            "peromptAt": "25 08 2035",
-            "quantity": 18
-        },
-        {
-            "id": 13,
-            "name": "Zamox 1G B\/16",
-            "price": 4215,
-            "publicPrice": 0,
-            "peromptAt": "25 08 2035",
-            "quantity": 17
-        },
-        {
-            "id": 12,
-            "name": "Artemether TM B6 inj",
-            "price": 2490,
-            "publicPrice": 0,
-            "peromptAt": "25 08 2035",
-            "quantity": 15
-        }
-    ]
+    "data": []
 }

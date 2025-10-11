@@ -80,16 +80,15 @@
             {% endfor %}
         </div>
         <div class="card-footer m-2 text-end">
-            <a href="" class="btn btn-danger me-5"><i class="bi bi-trash3"></i> Supprimer la commande</a>
-            <a href="" class="btn btn-warning me-5"><i class="bi bi-floppy"></i> Mettre en attente</a>
-            <a href="{{ path("app_customer_customer_saving")}}" class="btn btn-success me-5"><i class="bi bi-check-circle"></i> Valider la commande</a>
+            <a href="{{ path("app_customer_customer_delete") }}" class="btn btn-danger me-5"><i class="bi bi-trash3"></i> Supprimer la commande</a>
+            <a href="{{ path("app_customer_customer_pending") }}" class="btn btn-warning me-5"><i class="bi bi-floppy"></i> Mettre en attente</a>
+            <a href="{{ path("app_customer_customer_validate") }}" class="btn btn-success me-5"><i class="bi bi-check-circle"></i> Valider la commande</a>
         </div>
     </section>
 </div>
 
 <script>
     const jsProduct = {{ product|json_encode|raw }};
-    const orderItemer = {{ orderItemer|raw }};
 </script>
 {% endblock %}
 

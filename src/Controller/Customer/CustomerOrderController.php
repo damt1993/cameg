@@ -4,6 +4,7 @@ namespace App\Controller\Customer;
 
 use App\Entity\Customer;
 use App\Entity\Order;
+use App\Enum\OrderStatus;
 use App\Form\OrderForm;
 use App\Repository\ProductRepository;
 use DateTime;
@@ -215,8 +216,8 @@ final class CustomerOrderController extends AbstractController
         return new JsonResponse(["data"=>"Quantité changé", "montant"=>$montant, "id"=>$id]);
     }
 
-    #[Route('/saving', name: 'app_customer_customer_saving', methods: ["GET", "POST"])]
-    public function saving(EntityManagerInterface $manager, Order $order, ?Customer $customer)
+    #[Route('/validate', name: 'app_customer_customer_validate', methods: ["GET", "POST"])]
+    public function validate(EntityManagerInterface $manager, Order $order, ?Customer $customer)
     {
         /** @var User */
         $user = $this->getUser();
@@ -237,12 +238,86 @@ final class CustomerOrderController extends AbstractController
             $order->setProductList($jsonData["data"]);
             $order->setOrderedAt(new \DateTimeImmutable("now", new DateTimeZone("GMT")));
             $order->setOrderNumber($jsonData["commande"]);
+            $order->setStatus(OrderStatus::Validate);
 
             $manager->persist($order);
             $manager->flush();
 
             //delete the json file who contain the order
             unlink($file);
+        }
+
+
+        return $this->redirectToRoute("app_customer_customerorder_new");
+
+    }
+
+    #[Route('/pending', name: 'app_customer_customer_pending', methods: ["GET", "POST"])]
+    public function Pending(EntityManagerInterface $manager, Order $order, ?Customer $customer)
+    {
+        /** @var User */
+        $user = $this->getUser();
+
+        //file directory
+        $file = 'order/'.$user->getId().'.json';
+        
+        //Verify if directory exist
+        if (is_file($file)){
+            //Get file content
+            $data = file_get_contents($file);
+        }
+        //Convert data in json to php object
+        $jsonData = json_decode($data, true);
+
+        if (count($jsonData["data"])>0){
+            $order->setCustomer($this->getUser());
+            $order->setProductList($jsonData["data"]);
+            $order->setOrderedAt(new \DateTimeImmutable("now", new DateTimeZone("GMT")));
+            $order->setOrderNumber($jsonData["commande"]);
+            $order->setStatus(OrderStatus::Pending);
+
+            $manager->persist($order);
+            $manager->flush();
+
+            //delete the json file who contain the order
+            unlink($file);
+        }
+
+
+        return $this->redirectToRoute("app_customer_customerorder_new");
+
+    }
+
+    #[Route('/delete', name: 'app_customer_customer_delete', methods: ["GET", "POST"])]
+    public function DeleteOrder(EntityManagerInterface $manager, Order $order, ?Customer $customer)
+    {
+        /** @var User */
+        $user = $this->getUser();
+
+        //file directory
+        $file = 'order/'.$user->getId().'.json';
+        
+        //Verify if directory exist
+        if (is_file($file)){
+            //Get file content
+            $data = file_get_contents($file);
+        }
+        //Convert data in json to php object
+        $jsonData = json_decode($data, true);
+
+        if (count($jsonData["data"])>0){
+            $order->setCustomer($this->getUser());
+            $order->setProductList($jsonData["data"]);
+            $order->setOrderedAt(new \DateTimeImmutable("now", new DateTimeZone("GMT")));
+            $order->setOrderNumber($jsonData["commande"]);
+            $order->setStatus(OrderStatus::Delete);
+
+            $manager->persist($order);
+            $manager->flush();
+
+            //delete the json file who contain the order
+            unlink($file);
+            
         }
 
 
