@@ -16,6 +16,30 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
+    //Get the last order id of the current customer
+    public function GetLastOrderIdOfCurrentCustomer($customer): array
+    {
+        return $this->createQueryBuilder('o')
+                ->andWhere('o.customer = :customer')
+                ->setParameter('customer', $customer)
+                ->orderBy('o.id', 'DESC')
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getResult();
+    }
+
+    //Find some order in all order of the current customer withe her status
+    public function FindSomeStatusOrder($customer, $status): array
+    {
+        return $this->createQueryBuilder('o')
+                ->andWhere('o.customer = :customer')
+                ->setParameter('customer', $customer)
+                ->andWhere('o.status = :status')
+                ->setParameter('status', $status)
+                ->getQuery()
+                ->getResult();
+    }
+
     //    /**
     //     * @return Order[] Returns an array of Order objects
     //     */

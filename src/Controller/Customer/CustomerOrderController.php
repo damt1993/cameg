@@ -6,8 +6,8 @@ use App\Entity\Customer;
 use App\Entity\Order;
 use App\Enum\OrderStatus;
 use App\Form\OrderForm;
+use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
-use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class CustomerOrderController extends AbstractController
 {
     #[Route('', name: 'app_customer_customerorder_new')]
-    public function index(ProductRepository $repository): Response
+    public function index(ProductRepository $repository, OrderRepository $orderRepository): Response
     {
         $product = $repository->findAllProduct()->getQuery()->getResult();
         $productList = [];
@@ -43,10 +43,17 @@ final class CustomerOrderController extends AbstractController
         $user = $this->getUser();  
         $file = 'order/'.$user->getId().'.json';
 
+        $orderId = $orderRepository->GetLastOrderIdOfCurrentCustomer($user);
+        if (count($orderId)!= 0){
+            $orderId = $orderId[0]->getOrderNumber();
+        } else {
+            $orderId = 0;
+        }
+
         $data = [
             "client"=>$user->getUsername(),
             "date"=> new \DateTimeImmutable("now", new DateTimeZone("GMT")),
-            "commande"=>$user->getUsername().$user->getId(),
+            "commande"=>$orderId+1,
             "data"=>[],
         ];
         $jsonData = json_encode($data, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
@@ -62,12 +69,10 @@ final class CustomerOrderController extends AbstractController
             //Convert content in php object
             $phpOrderItem = json_decode($orderItem, true)['data'];
         }
-        $orderItemer = file_get_contents('../templates/orderItem.html.twig');
 
         return $this->render('customer/customerorder/new.html.twig', [
             'form' => $form,
             'product'=> $productList,
-            'orderItemer'=> json_encode($orderItemer),
             'phpOrderItem' => $phpOrderItem,
         ]);
     }

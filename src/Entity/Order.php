@@ -26,7 +26,7 @@ class Order
     private ?\DateTimeImmutable $orderedAt = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $orderNumber = null;
+    private ?int $orderNumber = null;
 
     #[ORM\Column(type: Types::ARRAY)]
     private ?array $productList = null;
@@ -63,12 +63,12 @@ class Order
         return $this;
     }
 
-    public function getOrderNumber(): ?string
+    public function getOrderNumber(): ?int
     {
         return $this->orderNumber;
     }
 
-    public function setOrderNumber(string $orderNumber): static
+    public function setOrderNumber(int $orderNumber): static
     {
         $this->orderNumber = $orderNumber;
 
