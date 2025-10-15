@@ -1,7 +1,7 @@
 import './bootstrap.js';
 import './js/jquery-3.7.1.min.js';
-import './js/searchbarAutocomplete.js';
-import './js/quantityBox.js';
+//import './js/searchbarAutocomplete.js';
+//import './js/quantityBox.js';
 /*
  * Welcome to your app's main JavaScript file!
  *
