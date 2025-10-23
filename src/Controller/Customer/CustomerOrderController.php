@@ -74,6 +74,8 @@ final class CustomerOrderController extends AbstractController
             'form' => $form,
             'product'=> $productList,
             'phpOrderItem' => $phpOrderItem,
+            'customer'=> $user->getCustomer(),
+            'newOrderButton'=>$this->showNewOrderButton(),
         ]);
     }
 
@@ -375,5 +377,22 @@ final class CustomerOrderController extends AbstractController
             file_put_contents($file, $productItemOrder);
         }
         return new JsonResponse(["data"=>"Donné supprimé", "id"=>$id]);
+    }
+
+    private function showNewOrderButton(){
+        /** @var User */
+        $user = $this->getUser();
+
+        //file directory
+        $file = 'order/'.$user->getId().'.json';
+
+        //Verify if directory exist
+        if (is_file($file)){
+            //Get file content
+            $newOrderButton = "Continuer la commande en cours";
+        } else {
+            $newOrderButton = "Créer une nouvelle commande";
+        }
+        return $newOrderButton;
     }
 }

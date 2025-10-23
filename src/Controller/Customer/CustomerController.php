@@ -17,11 +17,26 @@ final class CustomerController extends AbstractController
         $user = $this->getUser();
         $orderPending = $orderRepository->FindSomeStatusOrder($user, 'pending');
         $orderValidate = $orderRepository->FindSomeStatusOrder($user, 'validate');
+
+        /** @var User */
+        $user = $this->getUser();
+
+        //file directory
+        $file = 'order/'.$user->getId().'.json';
+        
+        //Verify if directory exist
+        if (is_file($file)){
+            //Get file content
+            $newOrderButton = "Continuer la commande en cours";
+        } else {
+            $newOrderButton = "Créer une nouvelle commande";
+        }
         
         return $this->render('customer/customer/index.html.twig', [
-            'customer' => $this->getUser(),
+            'customer' => $user->getCustomer(),
             'orderPending'=> $orderPending,
             'orderValidate'=> $orderValidate,
+            'newOrderButton'=> $newOrderButton,
         ]);
     }
 }

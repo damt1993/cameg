@@ -1,7 +1,5 @@
 import './bootstrap.js';
 import './js/jquery-3.7.1.min.js';
-//import './js/searchbarAutocomplete.js';
-//import './js/quantityBox.js';
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -12,5 +10,6 @@ import './vendor/bootstrap/dist/css/bootstrap.min.css';
 import './styles/app.css';
 import './styles/searchbarAutocomplete.css';
 import './styles/quantityBox.css';
+import './styles/anotherStyle.css';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

@@ -1,32 +1,25 @@
-{% extends 'base.html.twig' %}
+{% extends 'customer/customerindex.html.twig' %}
 
-{% block title %}Hello CustomerController!{% endblock %}
-{% set currentCustomer = customer.customer %}
-
-{% block body %}
+{% block section %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
 <div class="example-wrapper">
-    <section class="bg-white">
-        <h1> {{ currentCustomer.organisationName }} </h1>
-        <p>Contact : {{ currentCustomer.contact}} </p>
+
+    <section>
+        <a href="{{path('app_customer_customerorder_new')}}" class="btn btn-primary"><i class="bi bi-cart-dash"></i> {{ newOrderButton }}</a>
     </section>
 
     <section>
-        <a href="{{path('app_customer_customerorder_new')}}" class="btn btn-primary"><i class="bi bi-cart-dash"></i> Créer une nouvelle commande</a>
-    </section>
-
-    <section>
-        <div class="card mt-3">
-            <h4 class="card-header">Vos commandes en cours</h4>
+        <div class="card mt-3 orderPending">
+            <h4 class="card-header">Vos commandes en attente</h4>
             <div class="card-body">
                 <div class="list-group">
                     {% if orderPending %}
                         {% for order in orderPending %}
-                            <div class="list-group-item d-flex justify-content-between">
+                            <div class="list-group-item d-flex justify-content-between item{{order.orderNumber}}">
                                 Commande N° {{order.orderNumber}}                         
                                 <a href="" class="stretched-link link-dark"></a>
                                 <span class="text-mutted">{{ order.orderedAt|date('d/m/Y à H : i') }}</span>
@@ -41,7 +34,7 @@
             </div>
         </div>
 
-        <div class="card mt-3">
+        <div class="card mt-3 orderSaved">
             <h4 class="card-header">Vos commandes validés</h4>
             <div class="card-body">
                 <div class="list-group">
@@ -64,4 +57,5 @@
     </section>
 
 </div>
+
 {% endblock %}

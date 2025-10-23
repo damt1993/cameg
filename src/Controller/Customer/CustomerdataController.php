@@ -42,8 +42,24 @@ final class CustomerdataController extends AbstractController
             $manager->flush();
             return $this->redirectToRoute("app_customer_customerdata");
         }
-        return $this->render('customer/customerdata/index.html.twig', [
+        /** @var User */
+    $user = $this->getUser();
+
+    //file directory
+    $file = 'order/'.$user->getId().'.json';
+    
+    //Verify if directory exist
+    if (is_file($file)){
+        //Get file content
+        $newOrderButton = "Continuer la commande en cours";
+    } else {
+        $newOrderButton = "Créer une nouvelle commande";
+    }
+    
+     return $this->render('customer/customerdata/index.html.twig', [
             'form' => $form,
+            'customer'=>$user->getCustomer(),
+            'newOrderButton'=>$newOrderButton,
         ]);
     }
 }
