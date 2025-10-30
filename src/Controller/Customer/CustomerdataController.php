@@ -34,32 +34,53 @@ final class CustomerdataController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
             if ($user instanceof User && !$customer->getId()){
                 $customer->setUserId($user);
-                $customer->setLastConnectedAt(new \DateTimeImmutable());
-            } else {
-                return $this->redirectToRoute("app_login");
             }
+            $customer->setLastConnectedAt(new \DateTimeImmutable());
             $manager->persist($customer);
             $manager->flush();
-            return $this->redirectToRoute("app_customer_customerdata");
+            return $this->redirectToRoute("app_customer_customerdata_show");
         }
         /** @var User */
-    $user = $this->getUser();
+        $user = $this->getUser();
 
-    //file directory
-    $file = 'order/'.$user->getId().'.json';
+        //file directory
+        $file = 'order/'.$user->getId().'.json';
+        
+        //Verify if directory exist
+        if (is_file($file)){
+            //Get file content
+            $newOrderButton = "Continuer la commande en cours";
+        } else {
+            $newOrderButton = "Créer une nouvelle commande";
+        }
     
-    //Verify if directory exist
-    if (is_file($file)){
-        //Get file content
-        $newOrderButton = "Continuer la commande en cours";
-    } else {
-        $newOrderButton = "Créer une nouvelle commande";
+        return $this->render('customer/customerdata/index.html.twig', [
+                'form' => $form,
+                'customer'=>$user->getCustomer(),
+                'newOrderButton'=>$newOrderButton,
+        ]);
     }
-    
-     return $this->render('customer/customerdata/index.html.twig', [
-            'form' => $form,
-            'customer'=>$user->getCustomer(),
-            'newOrderButton'=>$newOrderButton,
+
+    #[Route('/show', name: 'app_customer_customerdata_show', methods: ["GET"])]
+    public function show(): Response
+    {
+        /** @var User */
+        $user = $this->getUser();
+
+        //file directory
+        $file = 'order/'.$user->getId().'.json';
+ 
+        //Verify if directory exist
+        if (is_file($file)){
+            //Get file content
+            $newOrderButton = "Continuer la commande en cours";
+        } else {
+            $newOrderButton = "Créer une nouvelle commande";
+        }
+        
+        return $this->render('customer/customerdata/show.html.twig', [
+                'customer'=>$user->getCustomer(),
+                'newOrderButton'=>$newOrderButton,
         ]);
     }
 }

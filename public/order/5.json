@@ -1,35 +1,19 @@
 {
     "client": "altapharma",
     "date": {
-        "date": "2025-10-12 21:39:10.636008",
+        "date": "2025-10-26 16:30:43.816661",
         "timezone_type": 2,
         "timezone": "GMT"
     },
-    "commande": 3,
+    "commande": 7,
     "data": [
-        {
-            "id": 13,
-            "name": "Zamox 1G B\/16",
-            "price": 4215,
-            "publicPrice": 0,
-            "peromptAt": "25 08 2035",
-            "quantity": 2
-        },
         {
             "id": 10,
             "name": "Acide Acetyl Salcilique 0.5G",
             "price": 50,
             "publicPrice": 100,
             "peromptAt": "22 06 2030",
-            "quantity": 5
-        },
-        {
-            "id": 11,
-            "name": "Aspirine Cardio",
-            "price": 1535,
-            "publicPrice": 0,
-            "peromptAt": "25 08 2035",
-            "quantity": 7
+            "quantity": 2
         }
     ]
 }

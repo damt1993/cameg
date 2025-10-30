@@ -1,12 +1,9 @@
 {% extends 'customer/customerindex.html.twig' %}
 
+{% block title %}Commandes en attente{% endblock %}
+
 {% block section %}
 <div class="example-wrapper">
-
-    <section>
-        <a href="{{path('app_customer_customerorder_new')}}" class="btn btn-primary"><i class="bi bi-cart-dash"></i> {{ newOrderButton }}</a>
-    </section>
-
     <section>
         <div class="card mt-3 orderPending">
             <h4 class="card-header">Vos commandes en attente</h4>
@@ -23,27 +20,6 @@
                     {% else %}
                         <div class=" text-danger">
                             Vous n'avez aucune commande en attente
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-
-        <div class="card mt-3 orderSaved">
-            <h4 class="card-header">Vos commandes validés</h4>
-            <div class="card-body">
-                <div class="list-group">
-                    {% if orderValidate %}
-                        {% for order in orderValidate %}
-                            <div class="list-group-item d-flex justify-content-between">
-                                Commande N° {{order.orderNumber}}                           
-                                <a href="" class="stretched-link link-dark"></a>
-                                <span class="text-mutted">{{ order.orderedAt|date('d/m/Y à H : i') }}</span>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        <div class=" text-danger">
-                            Vous n'avez aucune commande validé
                         </div>
                     {% endif %}
                 </div>

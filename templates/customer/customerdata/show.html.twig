@@ -1,0 +1,25 @@
+{% extends 'customer/customerindex.html.twig' %}
+
+{% block title %}Hello CustomerdataController!{% endblock %}
+
+{% block section %}
+<div class="example-wrapper">
+    <div class="card">
+        <h1 class="card-header text-center">Vos informations</h1>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item">Nom de l'entreprise : {{customer.organisationName}} </li>
+                <li class="list-group-item">Nom du responsable : {{customer.managerName}} </li>
+                <li class="list-group-item">Adresse : {{customer.adress}} </li>
+                <li class="list-group-item">Telephone : {{customer.contact}} </li>
+                <li class="list-group-item">E-mail : {{customer.email}} </li>
+                <li class="list-group-item">Dernière connection : {{customer.lastConnectedAt|date("d m Y à H : i : s")}} </li>
+            </ul>
+        </div>
+        <div class="card-footer text-center">
+            <a href="{{path('app_customer_customerdata_edit', {id : customer.userId.id})}}" class="btn btn-outline-primary">Modifier vos informations</a>
+            <a href="#" class="btn btn-outline-info">Modifier les identifiants</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

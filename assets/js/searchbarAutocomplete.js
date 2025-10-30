@@ -1,3 +1,5 @@
+const jsProduct = JSON.parse($(".data-list").attr("data-list"));
+
 function reacter(dataSubmit, parentData){
   const isParent = $(parentData).parents()[2];
 

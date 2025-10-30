@@ -255,7 +255,7 @@ final class CustomerOrderController extends AbstractController
         }
 
 
-        return $this->redirectToRoute("app_customer_customerorder_new");
+        return $this->redirectToRoute("app_customer_order_saved");
 
     }
 
@@ -291,7 +291,7 @@ final class CustomerOrderController extends AbstractController
         }
 
 
-        return $this->redirectToRoute("app_customer_customerorder_new");
+        return $this->redirectToRoute("app_customer_order_pending");
 
     }
 
@@ -328,7 +328,7 @@ final class CustomerOrderController extends AbstractController
         }
 
 
-        return $this->redirectToRoute("app_customer_customerorder_new");
+        return $this->redirectToRoute("app_customer_order_saved");
 
     }
 

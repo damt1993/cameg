@@ -1,11 +1,6 @@
 {% extends 'customer/customerindex.html.twig' %}
 
 {% block section %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
 <div class="example-wrapper">
 
   <section class="orderCreator">
@@ -77,17 +72,15 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="card-footer m-2 text-end">
-            <a href="{{ path("app_customer_customer_delete") }}" class="btn btn-danger me-5"><i class="bi bi-trash3"></i> Supprimer la commande</a>
-            <a href="{{ path("app_customer_customer_pending") }}" class="btn btn-warning me-5"><i class="bi bi-floppy"></i> Mettre en attente</a>
-            <a href="{{ path("app_customer_customer_validate") }}" class="btn btn-success me-5"><i class="bi bi-check-circle"></i> Valider la commande</a>
+        <div class="card-footer m-2 d-flex">
+            <a href="{{ path("app_customer_customer_delete") }}" class="btn btn-outline-danger me-5"><i class="bi bi-trash3"></i> Supprimer la commande</a>
+            <a href="{{ path("app_customer_customer_pending") }}" class="btn btn-outline-primary me-5"><i class="bi bi-floppy"></i> Mettre en attente</a>
+            <a href="{{ path("app_customer_customer_validate") }}" class="btn btn-outline-success me-5"><i class="bi bi-check-circle"></i> Valider la commande</a>
         </div>
     </section>
+    <section class="data-list" data-list='{{ product|json_encode|raw }}'></section>
 </div>
 
-<script defer>
-    const jsProduct = {{ product|json_encode|raw }};
-</script>
 <script src="{{ asset("js/searchbarAutocomplete.js") }}" defer></script>
 <script src="{{ asset("js/quantityBox.js") }}" defer></script>
 {% endblock %}
