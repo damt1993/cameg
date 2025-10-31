@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Collaborateurs{% endblock %}
+
+{% block body %}
+
+<!-- Create a navbar item for all customer actions space -->
+<div class="example-wrapper mt-0">
+    <section class="bg-white text-center pb-1 pt-2">
+        <h1> CAMEG - TOGO </h1>
+        <p>Contact : +228 92 26 13 44 </p>
+        <p>Lomé -Togo / Espace collaborateur</p>
+    </section>
+    <nav class="navbar navbar-expand navbar-dark bg-dark p-0 d-flex justify-content-between">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="" class="nav-link"><i class="bi bi-person"></i> Profil</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{path('app_admin_dci')}}" class="nav-link"><i class="bi bi-list-ul"></i> Listes des DCI</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{path('app_admin_product_all')}}" class="nav-link"><i class="bi bi-list-ul"></i> Listes complète des produits</a>
+            </li>
+        </ul>
+        <a href="{{path('app_logout')}}" class="btn btn-danger mx-3">Se déconnecter <i class="bi bi-arrow-bar-right"></i></a>
+    </nav>
+    {% block section %}{% endblock section %}
+
+    <footer class="bg-dark text-center m-0 p-0">
+        <div class="p-3 mt-2" >
+            <p class=" text-white">CAMEG - TOGO --> &copy Janvier 2025 &copy</p>
+        </div>
+    </footer>
+
+</div>
+{% endblock %}

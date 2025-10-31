@@ -21,10 +21,15 @@ class userConnectedService implements AuthenticationSuccessHandlerInterface
 
   public function onAuthenticationSuccess(Request $request, TokenInterface $token): ?Response
   {
+    /** @var User */
     $user = $token->getUser();
-
+  
     if (in_array("ROLE_CLIENT", $user->getRoles(), true)){
-      $redirection = new RedirectResponse($this->router->generate("app_customer_customerdata_show"));
+      if ($user->getCustomer()== null) {
+        $redirection = new RedirectResponse($this->router->generate("app_customer_customerdata"));
+      } else {
+        $redirection = new RedirectResponse($this->router->generate("app_customer_customerdata_show"));
+      }
     } else {
       $redirection = new RedirectResponse($this->router->generate("app_admin_collaborator_show"));
     }

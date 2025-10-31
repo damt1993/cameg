@@ -14,14 +14,44 @@
                         {% for order in orderValidate %}
                             <div class="list-group-item d-flex justify-content-between">
                                 Commande N° {{order.orderNumber}}                           
-                                <a href="" data-bs-toggle="modal" data-bs-target="#modal{{order.orderNumber}}" class="stretched-link link-dark" id='{"productList" : {{ order.productList|json_encode|raw }}, "orderNumber" : {{order.orderNumber}}, "orderDate" : "{{order.orderedAt|date('d/m/Y à H : i')}}"}'></a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#modal{{order.orderNumber}}" class="stretched-link link-dark"></a>
                                 <span class="text-mutted">{{ order.orderedAt|date('d/m/Y à H : i') }}</span>
                             </div>
                             <div class="modal fade" id="modal{{order.orderNumber}}" tabindex="-1" aria-labeledby="idModal{{order.orderNumber}}" aria-hidden="true">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="idModal{{order.orderNumber}}">Détails de la commande N°</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="idModal{{order.orderNumber}}">Détails de la commande N° {{order.orderNumber}} du {{order.orderedAt|date('d/m/Y à H : i')}} </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table class="table table-striped">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Nom du produit</th>
+                                                        <th scope="col" class=" text-center">Quantité</th>
+                                                        <th scope="col" class=" text-end">P. Unit</th>
+                                                        <th scope="col" class=" text-end">P. Total</th>
+                                                        <th scope="col" class=" text-end">P. Public</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% set i = 0 %}
+                                                    {% for item in order.productList %}
+                                                        {% set i = i + 1 %}
+                                                        <tr>
+                                                            <th scope="row">{{i}}</th>
+                                                            <td>{{item.name}}</td>
+                                                            <td class=" text-center">{{item.quantity}}</td>
+                                                            <td class=" text-end">{{item.price}}</td>
+                                                            <td class=" text-end">{{item.price * item.quantity}}</td>
+                                                            <td class=" text-end">{{item.publicPrice}}</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -35,42 +65,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Boutton réacteur -->
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exempleModal">Afficheur</button>
-
-    <!-- Modal réactif -->
-    <div class="modal fade" id="exempleModal" tabindex="-1" aria-labeledby="titreModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" id="titreModal">
-                    <h5 class="modal-title">Titre du modal</h5>
-                    <button class="btn-close" type="button" data-bs-dismiss="modal"></button>
-                </div>
-
-                <div class="modal-body">
-                    Ici on a le corps de notre modal
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                    <button type="button" class="btn btn-success">Envoyer</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <section class="orderContent mt-5">
-        <div class="card">
-            <h3 class="card-header text-center">Cliquez sur la commande pour avoir les étails ici</h3>
-            <div class="card-body">
-                <div class="list-group">
-                </div>
-            </div>
-        </div>
-    </section>
-
 </div>
 
 {% endblock %}

@@ -1,36 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{customer.organisationName}}-{% endblock %}
+{% block title %}
+    {% if customer is not null %}
+        {{customer.organisationName}}
+    {% endif %}
+    
+{% endblock %}
 
 {% block body %}
+
 <!-- Create a navbar item for all customer actions space -->
 <div class="example-wrapper mt-0">
-    <section class="bg-white text-center pb-1 pt-2">
-        <h1> {{ customer.organisationName }} </h1>
-        <p>Contact : {{ customer.contact}} </p>
-    </section>
-    <nav class="navbar navbar-expand navbar-dark bg-dark p-0 d-flex justify-content-between">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a href="{{path('app_customer_customerdata_show')}}" class="nav-link"><i class="bi bi-person"></i> Profil</a>
-            </li>
-            <li class="nav-item dropdown">
-                <button class="nav-link dropdown-toggle" id="navDropdownMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Commandes</button>
-                <div class="dropdown-menu m-0 p-0 bg-dark" aria-labelledby="navDropdownMenu" id="navDropdownMenu">
-                    <a href="{{path('app_customer_customerorder_new')}}" class="dropdown-item text-light"><i class="bi bi-cart-dash"></i> {{ newOrderButton }}</a>
-                    <a href="{{path('app_customer_order_pending')}}" class="dropdown-item text-light"><i class="bi bi-floppy"></i> Commande en attente</a>
-                    <a href="{{path('app_customer_order_saved')}}" class="dropdown-item text-light"><i class="bi bi-check-circle"></i> Historique de vos commandes</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a href="" class="nav-link"><i class="bi bi-list-ul"></i> Listes des produits</a>
-            </li>
-            <li class="nav-item">
-                <a href="" class="nav-link"><i class="bi bi-bag-dash"></i> Documents</a>
-            </li>
-        </ul>
-        <a href="{{path('app_logout')}}" class="btn btn-danger mx-3">Se déconnecter <i class="bi bi-arrow-bar-right"></i></a>
-    </nav>
+    {% if customer is not null %}
+        <section class="bg-white text-center pb-1 pt-2">
+            <h1> {{ customer.organisationName }} </h1>
+            <p>Contact : {{ customer.contact}} </p>
+        </section>
+        <nav class="navbar navbar-expand navbar-dark bg-dark p-0 d-flex justify-content-between">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="{{path('app_customer_customerdata_show')}}" class="nav-link"><i class="bi bi-person"></i> Profil</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle" id="navDropdownMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Commandes</button>
+                    <div class="dropdown-menu m-0 p-0 bg-dark" aria-labelledby="navDropdownMenu" id="navDropdownMenu">
+                        <a href="{{path('app_customer_customerorder_new')}}" class="dropdown-item text-light"><i class="bi bi-cart-dash"></i> {{ newOrderButton }}</a>
+                        <a href="{{path('app_customer_order_pending')}}" class="dropdown-item text-light"><i class="bi bi-floppy"></i> Commande en attente</a>
+                        <a href="{{path('app_customer_order_saved')}}" class="dropdown-item text-light"><i class="bi bi-check-circle"></i> Historique de vos commandes</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link"><i class="bi bi-list-ul"></i> Listes des produits</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link"><i class="bi bi-bag-dash"></i> Documents</a>
+                </li>
+            </ul>
+            <a href="{{path('app_logout')}}" class="btn btn-danger mx-3">Se déconnecter <i class="bi bi-arrow-bar-right"></i></a>
+        </nav>
+    {% endif %}
     {% block section %}{% endblock section %}
 
     <footer class="bg-dark text-center m-0 p-0">
