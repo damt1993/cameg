@@ -34,15 +34,33 @@ final class CollaboratorController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
             if ($user instanceof User && !$collaborator->getId()){
                 $collaborator->setUserId($user);
-                $collaborator->setLastConnectedAt(new \DateTimeImmutable());
-            } else {
-                return $this->redirectToRoute("app_login");
             }
+            $collaborator->setLastConnectedAt(new \DateTimeImmutable());
             $manager->persist($collaborator);
             $manager->flush();
+            return $this->redirectToRoute("app_admin_collaborator_show");
         }
-        return $this->render('collaborator/index.html.twig', [
+        return $this->render('collaborator/home_page/index.html.twig', [
             'form' => $form,
+        ]);
+    }
+
+    #[Route("/show", name: "app_admin_collaborator_show")]
+    public function show()
+    {
+        /** @var User */
+        $user = $this->getUser();
+        $collaborator = $user->getCollaborator();
+        $usersRoles = [
+            "ROLE_ADMIN" => "Administrateur",
+            "ROLE_CLIENT" => "Client",
+            "ROLE_MODERATOR" => "Modérateur",
+            "ROLE_OPERATOR" => "Opérateur"
+        ];
+
+        return $this->render('collaborator/home_page/show.html.twig', [
+            'collaborator'=> $collaborator,
+            'role'=>$usersRoles[$user->getRoles()[0]],
         ]);
     }
 }

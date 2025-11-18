@@ -1,0 +1,89 @@
+{% extends 'customer/customerindex.html.twig' %}
+
+{% block section %}
+<div class="example-wrapper">
+
+  <section class="orderCreator">
+    <h4 class=" text-center">Nouvelle commande <i class="bi bi-cart-dash"></i></h4>
+    {% include "components/searchbarAutocomplete.html.twig" %}
+  </section>
+
+    <section class="orderChoice">
+        <h3>Détails du produit choisi</h3>
+        <form action="">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="product" colspan="3"><span class="fw-bolder">Nom du produit :</span> 
+                            <div>
+                                <span class="span"></span>
+                            </div>
+                        </td>
+                        <td class="orderQuantityField w-25"><span class="fw-bolder">Quantité : </span>{% include "components/quantityBox.html.twig" %}</td>
+                    </tr>
+                    <tr>
+                        <td class="price col-3"><span class="fw-bolder">Prix d'achat : </span><span class="span"></span></td>
+                        <td class="publicPrice col-3"><span class="fw-bolder">Prix public : </span><span class="span"></span></td>
+                        <td class="peromptAt col-4" colspan="2"><span class="fw-bolder">Date de pérempltion : </span><span class="span"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class=" text-end">
+                <button type="submit" class="btn btn-primary">Ajouter au panier</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="card mt-5">
+        <div class="card-header">
+            <h3 class="card-title">Contenu de votre commande</h3>
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nom du produit</th>
+                        <th scope="col" class=" text-center">Quantité</th>
+                        <th scope="col" class=" text-center">P. Achat</th>
+                        <th scope="col" class=" text-center">P. Public</th>
+                        <th scope="col" class=" text-center">Montant</th>
+                    </tr>
+                </thead>
+                <tbody class="orderList">
+                    {% for orderItem in phpOrderItem %}
+                        <tr id="item{{orderItem['id']}}">
+                            <td scope="row" class="close-btn"><button class="btn btn-outline-danger"><i class="bi bi-trash3"></i></button></td>
+                            <td scope="row">{{ orderItem.name }}</td>
+                            <td scope="row" class="orderQuantity col-2">
+                                <div class="quantityBox">
+                                    <div class="input-group">
+                                        <span class="input-group-btn input-group-prepend">
+                                            <button class="btn btn-dark remove" type="button">-</button>
+                                        </span>
+                                        <input type="number" name="quantity" id="input{{ orderItem['id'] }}" class="form-control p-0 text-center" value="{{ orderItem['quantity'] }}" min="0" width="100">
+                                        <span class="input-group-btn intup-group-append">
+                                            <button class="btn btn-dark add" type="button">+</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td scope="row" class="text-end">{{ orderItem.price }}</td>
+                            <td scope="row" class="text-end">{{ orderItem.publicPrice }}</td>
+                            <td scope="row" class="text-end">{{ orderItem.price * orderItem.quantity }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer m-2 d-flex">
+            <a href="{{ path("app_customer_customer_delete") }}" class="btn btn-outline-danger me-5"><i class="bi bi-trash3"></i> Supprimer la commande</a>
+            <a href="{{ path("app_customer_customer_pending") }}" class="btn btn-outline-primary me-5"><i class="bi bi-floppy"></i> Mettre en attente</a>
+            <a href="{{ path("app_customer_customer_validate") }}" class="btn btn-outline-success me-5"><i class="bi bi-check-circle"></i> Valider la commande</a>
+        </div>
+    </section>
+    <section class="data-list" data-list='{{ product|json_encode|raw }}'></section>
+</div>
+
+<script src="{{ asset("js/searchbarAutocomplete.js") }}" defer></script>
+<script src="{{ asset("js/alerter.js") }}" defer></script>
+{% endblock %}
+

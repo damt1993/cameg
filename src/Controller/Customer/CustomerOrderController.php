@@ -70,7 +70,7 @@ final class CustomerOrderController extends AbstractController
             $phpOrderItem = json_decode($orderItem, true)['data'];
         }
 
-        return $this->render('customer/customerorder/new.html.twig', [
+        return $this->render('customer/customer/new.html.twig', [
             'form' => $form,
             'product'=> $productList,
             'phpOrderItem' => $phpOrderItem,
@@ -119,7 +119,7 @@ final class CustomerOrderController extends AbstractController
                 for ($i=0; $i < count($jsonData["data"]); $i++) { 
                     if ($jsonData["data"][$i]["id"]== $id){
                         $jsonData["data"][$i]["quantity"] += $quantity;
-                        $returnValue = ["id"=>$id,"newQuantity"=>$jsonData["data"][$i]["quantity"]];
+                        $returnValue = ["id"=>$id,"newQuantity"=>$jsonData["data"][$i]["quantity"], 'textStatus'=>'success', 'message'=>"Quantité ajouté avec succès"];
                         $productFind += 1;
                         break;
                     }
@@ -137,30 +137,29 @@ final class CustomerOrderController extends AbstractController
                     array_unshift($jsonData['data'], $itemOrder);
 
                     //Concive the item html for order basket
-                    $returnValue = "
-                        <div id='item".$id."' class='row mb-3'>
-                            <div class='col-4 close-button'>
-                                <button class='btn btn-outline-danger'><i class='bi bi-trash3'></i></button>
-                                ".$itemOrder['name']."
-                            </div>
-                            <div class='col-2 newQuantityBox'>
-                                <div class='quantity'>
+                    $returnValue = ['data'=>"
+                        <tr id='item".$id."'>
+                            <td scope='row' class='close-btn'><button class='btn btn-outline-danger'><i class='bi bi-trash3'></i></button></td>
+                            <td scope='row'>".$itemOrder['name']."</td>
+                            <td scope='row' class='orderQuantity col-2'>
+                                <div class='quantityBox'>
                                     <div class='input-group'>
                                         <span class='input-group-btn input-group-prepend'>
                                             <button class='btn btn-dark remove' type='button'>-</button>
                                         </span>
-                                        <input type='number' name='quantity' id='input".$itemOrder['id']."' class='form-control' value='".$itemOrder['quantity']."' min='0' width='100'>
+                                        <input type='number' name='quantity' id='input".$itemOrder['id']."' class='form-control p-0 text-center' value='".$itemOrder['quantity']."' min='0' width='100'>
                                         <span class='input-group-btn intup-group-append'>
                                             <button class='btn btn-dark add' type='button'>+</button>
                                         </span>
                                     </div>
                                 </div>
-                            </div>
-                            <div class='col-2 orderPrice'>".$itemOrder['price']."</div>
-                            <div class='col-2 orderPublicPrice'>".$itemOrder['publicPrice']."</div>
-                            <div class='col-2 orderValue'>".$itemOrder['quantity']*$itemOrder['price']."</div>
-                        </div>
-                    ";
+                            </td>
+                            <td scope='row' class='text-end'>".$itemOrder['price']."</td>
+                            <td scope='row' class='text-end'>".$itemOrder['publicPrice']."</td>
+                            <td scope='row' class='text-end'>".$itemOrder['price'] * $itemOrder['quantity']."</td>
+                        </tr>
+
+                    ", 'textStatus'=>'success', 'message'=>'Nouveau produit ajouté avec succès'];
                 }
             }
         }
@@ -168,7 +167,7 @@ final class CustomerOrderController extends AbstractController
         $productItemOrder = json_encode($jsonData, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
         //Put the new content in the order file
         file_put_contents($file, $productItemOrder);
-        return new JsonResponse(["data"=>$returnValue]);
+        return new JsonResponse($returnValue);
 
     }
 
@@ -177,14 +176,14 @@ final class CustomerOrderController extends AbstractController
     {
         //Vérifier si c'est une requete ajax
         if(!$request->isXmlHttpRequest()){
-            return new JsonResponse(['error'=> 'Cette requete n\'est pas une requète AJAX', 'status'=>'error']);
+            return new JsonResponse(['message'=> 'Cette requete n\'est pas une requète AJAX', 'textStatus'=>'error']);
         }
 
         //Récupérer les données via JSON
         $data = $request->getContent();
         
         if (!$data){
-            return new JsonResponse(["data"=>"Aucune donné n'a été transmise"]);
+            return new JsonResponse(["message"=>"Aucune donné n'a été transmise", 'textStatus'=>"error"]);
         } else {
             $item = $_POST;
             $id = htmlspecialchars($item["id"]);
@@ -220,7 +219,7 @@ final class CustomerOrderController extends AbstractController
             }
         }
 
-        return new JsonResponse(["data"=>"Quantité changé", "montant"=>$montant, "id"=>$id]);
+        return new JsonResponse(["message"=>"Quantité mise à jour", "montant"=>$montant, "id"=>$id, "textStatus"=>"success"]);
     }
 
     #[Route('/validate', name: 'app_customer_customer_validate', methods: ["GET", "POST"])]
@@ -337,7 +336,7 @@ final class CustomerOrderController extends AbstractController
     {
         //Vérifier si c'est une requete ajax
         if(!$request->isXmlHttpRequest()){
-            return new JsonResponse(['error'=> 'Cette requete n\'est pas une requète AJAX', 'status'=>'error']);
+            return new JsonResponse(['message'=> 'Cette requete n\'est pas une requète AJAX', 'textStatus'=>'error']);
         }
 
         //Récupérer les données via JSON
@@ -376,7 +375,7 @@ final class CustomerOrderController extends AbstractController
             //Put the new content in the order file
             file_put_contents($file, $productItemOrder);
         }
-        return new JsonResponse(["data"=>"Donné supprimé", "id"=>$id]);
+        return new JsonResponse(["message"=>"Produit supprimé avec succès", "id"=>$id, 'textStatus'=>'success']);
     }
 
     private function showNewOrderButton(){

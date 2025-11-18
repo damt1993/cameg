@@ -1,0 +1,25 @@
+{% extends 'collaborator/collaboratorindex.html.twig' %}
+
+{% block title %}Hello HomePageController!{% endblock %}
+
+{% block section %}
+
+<div class="example-wrapper">
+    <h3>Vos informations</h3>
+
+    <fieldset>
+        {{form_start(form)}}
+            {{form_row(form.name, {label:
+                "Votre nom complet"
+            })}}
+
+            {{form_row(form.telephone, {label:
+                "Votre contact"
+            })}}
+
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        {{form_end(form)}}
+    </fieldset>
+
+</div>
+{% endblock %}

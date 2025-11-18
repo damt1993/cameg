@@ -2,6 +2,14 @@ security:
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+
+    role_hierarchy:
+        ROLE_USER: ~
+        ROLE_CLIENT: ROLE_USER
+        ROLE_OPERATOR: ROLE_USER
+        ROLE_MODERATOR: ROLE_OPERATOR
+        ROLE_ADMIN: [ROLE_MODERATOR, ROLE_CLIENT]
+
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         # used to reload user from session & other features (e.g. switch_user)
@@ -38,6 +46,11 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/registration, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_OPERATOR }
+        - { path: ^/admin, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/customer, roles: ROLE_CLIENT }
+        - { path: ^/customer, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
     security:

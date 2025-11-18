@@ -26,31 +26,42 @@
                                         </div>
                                         <div class="modal-body">
                                             <table class="table table-striped">
-                                                <thead class="thead-dark">
+                                                <thead class="table-dark">
                                                     <tr>
                                                         <th scope="col">#</th>
                                                         <th scope="col">Nom du produit</th>
                                                         <th scope="col" class=" text-center">Quantité</th>
                                                         <th scope="col" class=" text-end">P. Unit</th>
-                                                        <th scope="col" class=" text-end">P. Total</th>
                                                         <th scope="col" class=" text-end">P. Public</th>
+                                                        <th scope="col" class=" text-end">P. Total</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     {% set i = 0 %}
+                                                    {% set amount = 0 %}
                                                     {% for item in order.productList %}
                                                         {% set i = i + 1 %}
                                                         <tr>
                                                             <th scope="row">{{i}}</th>
                                                             <td>{{item.name}}</td>
                                                             <td class=" text-center">{{item.quantity}}</td>
-                                                            <td class=" text-end">{{item.price}}</td>
-                                                            <td class=" text-end">{{item.price * item.quantity}}</td>
-                                                            <td class=" text-end">{{item.publicPrice}}</td>
+                                                            <td class=" text-end">{{item.price|number_format(0, ",", " ")}}</td>
+                                                            <td class=" text-end">{{item.publicPrice|number_format(0, ",", " ")}}</td>
+                                                            <td class=" text-end">{{(item.price * item.quantity)|number_format(0, ",", " ")}}</td>
                                                         </tr>
+                                                        {% set amount = amount + (item.price * item.quantity) %}
                                                     {% endfor %}
                                                 </tbody>
+                                                <tfoot class="table-dark">
+                                                    <tr>
+                                                        <th scope="row" colspan="4">Total de la commande</th>
+                                                        <th scope="row" colspan="2" class="text-end">{{amount|number_format(0, ",", " ")}}</th>
+                                                    </tr>
+                                                </tfoot>
                                             </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
                                         </div>
                                     </div>
                                 </div>

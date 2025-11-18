@@ -1,0 +1,46 @@
+{% extends 'collaborator/collaboratorindex.html.twig' %}
+
+{% block title %}Hello HomePageController!{% endblock %}
+
+{% block section %}
+
+<div class="example-wrapper">
+    <div class="card">
+        <h3 class="card-header">Vos informations</h3>
+        <div class="card-body">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td scope="row">Nom complet</td>
+                        <td scope="row">: {{collaborator.name}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row">Contact</td>
+                        <td scope="row">: {{collaborator.telephone}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row">Role assumé</td>
+                        <td scope="row">: {{role}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row">Dernière connection</td>
+                        <td scope="row">:{{collaborator.lastConnectedAt|date("d/m/Y à H : i : s")}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row"></td>
+                        <td scope="row"></td>
+                    </tr>
+                    <tr>
+                        <td scope="row"></td>
+                        <td scope="row"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text-center">
+            <a href="{{path('app_admin_collaborator_edit', {id : collaborator.userId.id})}}" class="btn btn-outline-primary">Modifier vos informations</a>
+            <a href="#" class="btn btn-outline-info">Modifier les identifiants</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

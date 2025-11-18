@@ -31,7 +31,11 @@ class userConnectedService implements AuthenticationSuccessHandlerInterface
         $redirection = new RedirectResponse($this->router->generate("app_customer_customerdata_show"));
       }
     } else {
-      $redirection = new RedirectResponse($this->router->generate("app_admin_collaborator_show"));
+      if ($user->getCollaborator()== null){
+        $redirection = new RedirectResponse($this->router->generate("app_admin_collaborator_new"));
+      } else {
+        $redirection = new RedirectResponse($this->router->generate("app_admin_collaborator_show"));    
+      }
     }
     return $redirection;
   }

@@ -3,14 +3,14 @@ const jsProduct = JSON.parse($(".data-list").attr("data-list"));
 function reacter(dataSubmit, parentData){
   const isParent = $(parentData).parents()[2];
 
-  //Order manager
+  //Order choice item selected data show manager
   if (isParent.classList.contains("orderCreator")){
-    $(".orderChoice .product span").text(dataSubmit.name);
-    $(".orderChoice .price span").text(dataSubmit.price+" F Cfa");
-    $(".orderChoice .publicPrice span").text(dataSubmit.publicPrice+" F Cfa");
-    $(".orderChoice .peromptAt span").text(dataSubmit.peromptAt);
+    $(".orderChoice .product .span").text(dataSubmit.name);
+    $(".orderChoice .price .span").text(dataSubmit.price+" F Cfa");
+    $(".orderChoice .publicPrice .span").text(dataSubmit.publicPrice+" F Cfa");
+    $(".orderChoice .peromptAt .span").text(dataSubmit.peromptAt);
     $(".orderCreator .searchbarAutocomplete input").val("");
-    $(".orderChoice .quantityBox input").val(0).focus().select();
+    $(".orderChoice .orderQuantityField input").val(0).focus().select();
     addOrderItem(dataSubmit);
   } else {
     console.log("Nosé passa");
@@ -19,12 +19,12 @@ function reacter(dataSubmit, parentData){
 
 //Reinit order item information autocomplete
 function reinitOrderItemData() {
-  $(".orderChoice .product span").text("");
-  $(".orderChoice .price span").text("");
-  $(".orderChoice .publicPrice span").text("");
-  $(".orderChoice .peromptAt span").text("");
+  $(".orderChoice .product .span").text("");
+  $(".orderChoice .price .span").text("");
+  $(".orderChoice .publicPrice .span").text("");
+  $(".orderChoice .peromptAt .span").text("");
   $(".orderCreator .searchbarAutocomplete input").focus();
-  $(".orderChoice .quantityBox input").val(0);
+  $(".orderChoice .orderQuantityField input").val(0);
 }
 
 //Set the autofocus on
@@ -46,22 +46,22 @@ function addOrderItem(dataSubmit){
       
       $.post("customerorder/update", dataSubmit,
         function (data, textStatus, jqXHR) {
-          const dataReturn = data["data"];
-          if (dataReturn["id"]){
+          if (data["id"]){
             //Update the quantity
-            $("#input"+dataReturn["id"]).val(dataReturn["newQuantity"]);
+            $("#input"+data["id"]).val(data["newQuantity"]);
           } else {
             //add the new html item
-            $(".orderList").prepend(dataReturn);
+            $(".orderList").prepend(data['data']);
           }
+          alerter(data);
         },
         "json",
       );
       reinitOrderItemData();
     }
   });
-
 }
+
 //Autocomplete function
 function searchbarAutocomplete(searchbarInputer, dataToAutocomplete){
   //index of the focuser
