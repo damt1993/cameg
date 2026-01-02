@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        {{styleCss}}
+    </style>
+    <title>Présentation</title>
+</head>
+<body>
+
+    <header>
+        <div class="cameg">
+            <div class="legend">
+                <div class="logo">
+                    <img src="assets/img/logo.jpg" alt="Logo CAMEG" width="70px" height="57px">
+                </div>
+                <div class="adress">
+                    <h4>CAMEG - TOGO</h4>
+                    <p>202, Boulevard des Armées, Tokoin Hôpital, BP : 8349 Lomé - TOGO<</p>
+                    <p>Tel : (228) 22 22 26 94 Fax : (228) 22 20 43 13</p>
+                    <p>E-mail : camegtogo@cameg-togo.tg; camegtogo@gmail.com<</p>
+                </div>
+            </div>
+
+            <div class="others">
+                <div class="accountNumber">
+                    <h4>Numéro de compte</h4>
+                    <p>5+55 526+25 156151 515156</p>
+                    <p>32164 156515 1561+5 5151 65</p>
+                </div>
+                <div class="facture">
+                    <h1>Facture</h1>
+                </div>
+            </div>
+
+            <div class="factureData">
+                <p>CAMEG TOGO / PRA LOME</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>N° Facture</th>
+                            <th>Date Facture</th>
+                            <th>Référence</th>
+                            <th>N° BL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>FC2501643</td>
+                            <td>09/07/2025</td>
+                            <td>KK25071629/C1685</td>
+                            <td>BL2501685</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="client">
+            <h4>Client payeur</h4>
+            <p>{{ customer.organisationName }}</p>
+            <p>{{ customer.adress }}</p>
+            <p>{{ customer.contact }}</p>
+            <p>{{ customer.email }}</p>
+        </div>
+    </header>
+
+    <section class="orderTable">
+        <table>
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Désignation</th>
+                    <th>Quantité</th>
+                    <th>Prix Unitaire</th>
+                    <th>Montant</th>
+                    <th>Prix Public</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Paracetamol TM</td>
+                    <td>08</td>
+                    <td>180</td>
+                    <td>2 000</td>
+                    <td>205</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Artemether TM b/6</td>
+                    <td>6</td>
+                    <td>2 000</td>
+                    <td>12 000</td>
+                    <td>3 525</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Utrixone</td>
+                    <td>12</td>
+                    <td>1 000</td>
+                    <td>12 000</td>
+                    <td>1 255</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Artesun 120</td>
+                    <td>2</td>
+                    <td>1 800</td>
+                    <td>3 900</td>
+                    <td>2 550</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Orofer Gellule</td>
+                    <td>5</td>
+                    <td>1600</td>
+                    <td>30 000</td>
+                    <td>2 100</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <h1>Pied de page</h1>
+    </footer>
+</body>
+</html>

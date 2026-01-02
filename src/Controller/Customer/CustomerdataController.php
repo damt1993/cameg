@@ -6,7 +6,11 @@ use App\Entity\Customer;
 use App\Entity\User;
 use App\Form\CustomerDataForm;
 use App\Repository\CustomerRepository;
+use App\Service\PdfGeneratorService;
+use App\Service\PdfService;
 use Doctrine\ORM\EntityManagerInterface;
+use Pontedilana\PhpWeasyPrint\Pdf;
+use Pontedilana\WeasyprintBundle\WeasyPrint\Response\PdfResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -82,5 +86,80 @@ final class CustomerdataController extends AbstractController
                 'customer'=>$user->getCustomer(),
                 'newOrderButton'=>$newOrderButton,
         ]);
+    }
+
+    #[Route('/pdf', name: 'app_pdf', methods: ['GET'])]
+    public function pdfer(PdfService $pdf)
+    {
+        /** @var User */
+        $user = $this->getUser();
+
+        //file directory
+        $file = 'order/'.$user->getId().'.json';
+ 
+        //Verify if directory exist
+        if (is_file($file)){
+            //Get file content
+            $newOrderButton = "Continuer la commande en cours";
+        } else {
+            $newOrderButton = "Créer une nouvelle commande";
+        }
+
+        
+        $html = $this->render('customer/customerdata/show.html.twig', [
+                'customer'=>$user->getCustomer(),
+                'newOrderButton'=>$newOrderButton,
+        ]);
+
+        $pdf->showPdfFile($html);
+    }
+
+    #[Route('/outputpdf', name: 'app_output_pdf', methods: ['GET'])]
+    public function outputPdf(PdfGeneratorService $pdfGeneratorService): Response
+    {
+        /** @var User */
+        $user = $this->getUser();
+
+        //file directory
+        $file = 'order/'.$user->getId().'.json';
+ 
+        $bootstrap = file_get_contents('assets/styles.css');
+
+        $html = $this->renderView('customer/customer/pdf.html.twig', [
+                'customer'=>$user->getCustomer(),
+                'styleCss'=>$bootstrap,
+        ]);
+        $content = $pdfGeneratorService->outputPdf($html);
+        
+        return new Response($content, 200, [
+            'Content-Type'=>'application/pdf'
+        ]);
+    }
+
+
+    #[Route('/streampdf', name: 'app_stream_pdf', methods: ['GET'])]
+    public function streamPdf(PdfGeneratorService $pdfGeneratorService): Response
+    {
+        /** @var User */
+        $user = $this->getUser();
+
+        //file directory
+        $file = 'order/'.$user->getId().'.json';
+ 
+        //Verify if directory exist
+        if (is_file($file)){
+            //Get file content
+            $newOrderButton = "Continuer la commande en cours";
+        } else {
+            $newOrderButton = "Créer une nouvelle commande";
+        }
+
+        $html = $this->renderView('customer/customerdata/show.html.twig', [
+                'customer'=>$user->getCustomer(),
+                'newOrderButton'=>$newOrderButton,
+        ]);
+
+        $content = $html;
+        return $pdfGeneratorService->getStreamPdf($content, 'hello.pdf');
     }
 }

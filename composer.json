@@ -12,6 +12,8 @@
         "doctrine/doctrine-bundle": "^2.15",
         "doctrine/doctrine-migrations-bundle": "^3.4",
         "doctrine/orm": "^3.5",
+        "dompdf/dompdf": "^3.1",
+        "nucleos/dompdf-bundle": "^4.3",
         "pagerfanta/doctrine-orm-adapter": "^4.7",
         "pagerfanta/twig": "^4.7",
         "phpdocumentor/reflection-docblock": "^5.6",
